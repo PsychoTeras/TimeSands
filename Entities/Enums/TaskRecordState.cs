@@ -1,6 +1,6 @@
 ﻿namespace TimeSands.Entities.Enums
 {
-    internal enum TaskEventState
+    internal enum TaskRecordState
     {
         Active = 1,
         Deleted

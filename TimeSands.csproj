@@ -60,8 +60,13 @@
     <Compile Include="DAL\TaskDAL.cs" />
     <Compile Include="DAL\BaseDAL.cs" />
     <Compile Include="Entities\Enums\SprintState.cs" />
-    <Compile Include="Entities\Enums\TaskEventState.cs" />
+    <Compile Include="Entities\Enums\TaskRecordState.cs" />
     <Compile Include="Entities\Enums\TaskState.cs" />
+    <Compile Include="Entities\Models\BaseModel.cs" />
+    <Compile Include="Entities\Models\SprintModel.cs" />
+    <Compile Include="Entities\Models\TaskModel.cs" />
+    <Compile Include="Entities\Models\TaskRecordModel.cs" />
+    <Compile Include="Entities\Models\TasksModel.cs" />
     <Compile Include="Forms\frmMain.cs">
       <SubType>Form</SubType>
     </Compile>

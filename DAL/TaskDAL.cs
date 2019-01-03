@@ -59,27 +59,27 @@ CREATE TABLE T_TASKS
 )";
             command.ExecuteNonQuery();
 
-            //T_TASK_EVENT_STATE
+            //T_TASK_RECORD_STATE
             command.CommandText = @"
-CREATE TABLE T_TASK_EVENT_STATE
+CREATE TABLE T_TASK_RECORD_STATE
 (
     id INTEGER PRIMARY KEY NOT NULL,
     name TEXT(160) NOT NULL UNIQUE
 )";
             command.ExecuteNonQuery();
 
-            //T_TASK_EVENT
+            //T_TASK_RECORD
             command.CommandText = @"
-CREATE TABLE T_TASK_EVENT
+CREATE TABLE T_TASK_RECORD
 (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     task_id INTEGER NOT NULL,
     start_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     stop_time TIMESTAMP DEFAULT NULL,
-    event_state_id INTEGER NOT NULL,
+    record_state_id INTEGER NOT NULL,
 
     FOREIGN KEY(task_id) REFERENCES T_TASKS(id),
-    FOREIGN KEY(event_state_id) REFERENCES T_TASK_EVENT_STATE(id)
+    FOREIGN KEY(record_state_id) REFERENCES T_TASK_RECORD_STATE(id)
 )";
             command.ExecuteNonQuery();
         }
@@ -106,7 +106,7 @@ VALUES
 
             CreateStateData<SprintState>("T_SPRINT_STATE");
             CreateStateData<TaskState>("T_TASK_STATE");
-            CreateStateData<TaskEventState>("T_TASK_EVENT_STATE");
+            CreateStateData<TaskRecordState>("T_TASK_RECORD_STATE");
 
             //Insert Default Sprint
             command.CommandText = @"
