@@ -7,7 +7,7 @@ namespace TimeSands.Entities.Models
     {
         public DateTime StartTime { get; set; }
 
-        public DateTime? StopTime { get; set; }
+        public DateTime? EndTime { get; set; }
 
         public TaskRecordState State { get; set; }
     }

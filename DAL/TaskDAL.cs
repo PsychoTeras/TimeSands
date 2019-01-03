@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using TimeSands.Common;
 using TimeSands.Entities.Enums;
-using TimeSands.Helpers;
 
 namespace TimeSands.DAL
 {
@@ -75,7 +75,7 @@ CREATE TABLE T_TASK_RECORD
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     task_id INTEGER NOT NULL,
     start_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    stop_time TIMESTAMP DEFAULT NULL,
+    end_time TIMESTAMP DEFAULT NULL,
     record_state_id INTEGER NOT NULL,
 
     FOREIGN KEY(task_id) REFERENCES T_TASKS(id),
@@ -94,7 +94,7 @@ INSERT INTO {tableName}
     (id, name)
 VALUES
     (@id, @name)";
-                IEnumerable<Tuple<int, string>> kv = CommonHelpers.EnumToKeyValue<T>();
+                IEnumerable<Tuple<int, string>> kv = Helpers.EnumToKeyValue<T>();
                 foreach (Tuple<int, string> item in kv)
                 {
                     command.Parameters.Clear();

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using TimeSands.Entities.Enums;
 
 namespace TimeSands.Entities.Models
@@ -15,13 +14,6 @@ namespace TimeSands.Entities.Models
         public DateTime? UpdateTime { get; set; }
 
         public SprintState State { get; set; }
-
-        public List<TaskModel> Tasks { get; }
-
-        public SprintModel()
-        {
-            Tasks = new List<TaskModel>();
-        }
 
         public override string ToString()
         {

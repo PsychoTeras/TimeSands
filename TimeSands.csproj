@@ -83,16 +83,17 @@
     <Compile Include="Entities\Enums\TaskState.cs" />
     <Compile Include="Entities\Models\BaseModel.cs" />
     <Compile Include="Entities\Models\SprintModel.cs" />
+    <Compile Include="Entities\Models\Sprints.cs" />
     <Compile Include="Entities\Models\TaskModel.cs" />
     <Compile Include="Entities\Models\TaskRecordModel.cs" />
-    <Compile Include="Entities\Models\TasksModel.cs" />
+    <Compile Include="Entities\Models\Tasks.cs" />
     <Compile Include="Forms\frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\CommonHelpers.cs" />
+    <Compile Include="Common\Helpers.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\frmMain.resx">
@@ -121,6 +122,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\application.ico" />
+    <None Include="Resources\jira.png" />
     <None Include="Resources\icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

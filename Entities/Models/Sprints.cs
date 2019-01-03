@@ -2,7 +2,7 @@
 
 namespace TimeSands.Entities.Models
 {
-    internal class TasksModel : List<TaskModel>
+    internal class Sprints : List<SprintModel>
     {
     }
 }

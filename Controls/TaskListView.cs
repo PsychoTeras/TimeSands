@@ -2,7 +2,7 @@
 
 namespace TimeSands.Controls
 {
-    public class TaskListView : BetterListView
+    internal sealed class TaskListView : BetterListView
     {
     }
 }

@@ -2,7 +2,9 @@
 {
     internal enum TaskState
     {
-        Active = 1,
+        Idle = 1,
+        Active,
+        Closed,
         Deleted
     }
 }
