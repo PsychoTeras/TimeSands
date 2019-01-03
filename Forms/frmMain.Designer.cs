@@ -1,4 +1,6 @@
-﻿namespace TimeSands.Forms
+﻿using TimeSands.Controls;
+
+namespace TimeSands.Forms
 {
     partial class frmMain
     {
@@ -30,10 +32,11 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.pTop = new System.Windows.Forms.Panel();
+            this.hrTop = new TimeSands.Controls.HorizontalDivider();
             this.tsTop = new System.Windows.Forms.ToolStrip();
             this.btnTaskAdd = new System.Windows.Forms.ToolStripButton();
             this.pMain = new TimeSands.Controls.BorderedPanel();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.pMainCenter = new System.Windows.Forms.Panel();
             this.lvTasks = new TimeSands.Controls.TaskListView();
             this.lvhTask = new ComponentOwl.BetterListView.BetterListViewColumnHeader();
             this.lvhState = new ComponentOwl.BetterListView.BetterListViewColumnHeader();
@@ -41,16 +44,18 @@
             this.lvhCreated = new ComponentOwl.BetterListView.BetterListViewColumnHeader();
             this.lvhClosed = new ComponentOwl.BetterListView.BetterListViewColumnHeader();
             this.lvhTimeSpent = new ComponentOwl.BetterListView.BetterListViewColumnHeader();
-            this.lvhActions = new ComponentOwl.BetterListView.BetterListViewColumnHeader();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.horizontalDivider1 = new TimeSands.Controls.HorizontalDivider();
-            this.hrTop = new TimeSands.Controls.HorizontalDivider();
+            this.pMainTop = new System.Windows.Forms.Panel();
+            this.hrMainTop = new TimeSands.Controls.HorizontalDivider();
+            this.cbCurrentSprint = new BorderedToolStripComboBox();
+            this.lblCurrentSprint = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnSprints = new System.Windows.Forms.ToolStripButton();
             this.pTop.SuspendLayout();
             this.tsTop.SuspendLayout();
             this.pMain.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.pMainCenter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lvTasks)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.pMainTop.SuspendLayout();
             this.SuspendLayout();
             // 
             // pTop
@@ -63,6 +68,14 @@
             this.pTop.Size = new System.Drawing.Size(1191, 49);
             this.pTop.TabIndex = 1;
             // 
+            // hrTop
+            // 
+            this.hrTop.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.hrTop.Location = new System.Drawing.Point(0, 48);
+            this.hrTop.Name = "hrTop";
+            this.hrTop.Size = new System.Drawing.Size(1191, 1);
+            this.hrTop.TabIndex = 1;
+            // 
             // tsTop
             // 
             this.tsTop.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -72,10 +85,14 @@
             this.tsTop.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.tsTop.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.tsTop.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnTaskAdd});
+            this.btnTaskAdd,
+            this.cbCurrentSprint,
+            this.lblCurrentSprint,
+            this.toolStripSeparator1,
+            this.btnSprints});
             this.tsTop.Location = new System.Drawing.Point(1, 0);
             this.tsTop.Name = "tsTop";
-            this.tsTop.Padding = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.tsTop.Padding = new System.Windows.Forms.Padding(1, 0, 10, 0);
             this.tsTop.Size = new System.Drawing.Size(1191, 48);
             this.tsTop.TabIndex = 0;
             // 
@@ -94,22 +111,22 @@
             this.pMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pMain.Controls.Add(this.panel2);
-            this.pMain.Controls.Add(this.panel1);
+            this.pMain.Controls.Add(this.pMainCenter);
+            this.pMain.Controls.Add(this.pMainTop);
             this.pMain.Location = new System.Drawing.Point(12, 64);
             this.pMain.Name = "pMain";
             this.pMain.Padding = new System.Windows.Forms.Padding(1);
             this.pMain.Size = new System.Drawing.Size(1167, 657);
             this.pMain.TabIndex = 2;
             // 
-            // panel2
+            // pMainCenter
             // 
-            this.panel2.Controls.Add(this.lvTasks);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(1, 46);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1165, 610);
-            this.panel2.TabIndex = 1;
+            this.pMainCenter.Controls.Add(this.lvTasks);
+            this.pMainCenter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pMainCenter.Location = new System.Drawing.Point(1, 46);
+            this.pMainCenter.Name = "pMainCenter";
+            this.pMainCenter.Size = new System.Drawing.Size(1165, 610);
+            this.pMainCenter.TabIndex = 1;
             // 
             // lvTasks
             // 
@@ -120,7 +137,6 @@
             this.lvTasks.Columns.Add(this.lvhCreated);
             this.lvTasks.Columns.Add(this.lvhClosed);
             this.lvTasks.Columns.Add(this.lvhTimeSpent);
-            this.lvTasks.Columns.Add(this.lvhActions);
             this.lvTasks.DisplayMember = "Name";
             this.lvTasks.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvTasks.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -173,36 +189,51 @@
             this.lvhTimeSpent.Text = "Time spent";
             this.lvhTimeSpent.ValueMember = "TimeSpent";
             // 
-            // lvhActions
+            // pMainTop
             // 
-            this.lvhActions.AlignHorizontal = ComponentOwl.BetterListView.TextAlignmentHorizontal.Right;
-            this.lvhActions.Name = "lvhActions";
-            this.lvhActions.Text = "Actions";
+            this.pMainTop.Controls.Add(this.hrMainTop);
+            this.pMainTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pMainTop.Location = new System.Drawing.Point(1, 1);
+            this.pMainTop.Name = "pMainTop";
+            this.pMainTop.Size = new System.Drawing.Size(1165, 45);
+            this.pMainTop.TabIndex = 0;
             // 
-            // panel1
+            // hrMainTop
             // 
-            this.panel1.Controls.Add(this.horizontalDivider1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(1, 1);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1165, 45);
-            this.panel1.TabIndex = 0;
+            this.hrMainTop.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.hrMainTop.Location = new System.Drawing.Point(0, 44);
+            this.hrMainTop.Name = "hrMainTop";
+            this.hrMainTop.Size = new System.Drawing.Size(1165, 1);
+            this.hrMainTop.TabIndex = 2;
             // 
-            // horizontalDivider1
+            // cbCurrentSprint
             // 
-            this.horizontalDivider1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.horizontalDivider1.Location = new System.Drawing.Point(0, 44);
-            this.horizontalDivider1.Name = "horizontalDivider1";
-            this.horizontalDivider1.Size = new System.Drawing.Size(1165, 1);
-            this.horizontalDivider1.TabIndex = 2;
+            this.cbCurrentSprint.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.cbCurrentSprint.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCurrentSprint.Name = "cbCurrentSprint";
+            this.cbCurrentSprint.Size = new System.Drawing.Size(121, 48);
             // 
-            // hrTop
+            // lblCurrentSprint
             // 
-            this.hrTop.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.hrTop.Location = new System.Drawing.Point(0, 48);
-            this.hrTop.Name = "hrTop";
-            this.hrTop.Size = new System.Drawing.Size(1191, 1);
-            this.hrTop.TabIndex = 1;
+            this.lblCurrentSprint.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.lblCurrentSprint.Name = "lblCurrentSprint";
+            this.lblCurrentSprint.Size = new System.Drawing.Size(80, 45);
+            this.lblCurrentSprint.Text = "Current sprint";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 48);
+            // 
+            // btnSprints
+            // 
+            this.btnSprints.AutoSize = false;
+            this.btnSprints.Image = ((System.Drawing.Image)(resources.GetObject("btnSprints.Image")));
+            this.btnSprints.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSprints.Name = "btnSprints";
+            this.btnSprints.Size = new System.Drawing.Size(69, 45);
+            this.btnSprints.Text = "Sprints";
+            this.btnSprints.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // frmMain
             // 
@@ -215,14 +246,14 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Time Sands, v0.1";
+            this.Text = "Time Sands (0.1)";
             this.pTop.ResumeLayout(false);
             this.tsTop.ResumeLayout(false);
             this.tsTop.PerformLayout();
             this.pMain.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
+            this.pMainCenter.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.lvTasks)).EndInit();
-            this.panel1.ResumeLayout(false);
+            this.pMainTop.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -234,16 +265,19 @@
         private Controls.HorizontalDivider hrTop;
         private Controls.BorderedPanel pMain;
         private Controls.TaskListView lvTasks;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel1;
-        private Controls.HorizontalDivider horizontalDivider1;
+        private System.Windows.Forms.Panel pMainCenter;
+        private System.Windows.Forms.Panel pMainTop;
+        private Controls.HorizontalDivider hrMainTop;
         private ComponentOwl.BetterListView.BetterListViewColumnHeader lvhTask;
         private ComponentOwl.BetterListView.BetterListViewColumnHeader lvhState;
         private ComponentOwl.BetterListView.BetterListViewColumnHeader lvhSprint;
         private ComponentOwl.BetterListView.BetterListViewColumnHeader lvhCreated;
         private ComponentOwl.BetterListView.BetterListViewColumnHeader lvhClosed;
         private ComponentOwl.BetterListView.BetterListViewColumnHeader lvhTimeSpent;
-        private ComponentOwl.BetterListView.BetterListViewColumnHeader lvhActions;
+        private BorderedToolStripComboBox cbCurrentSprint;
+        private System.Windows.Forms.ToolStripLabel lblCurrentSprint;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton btnSprints;
     }
 }
 

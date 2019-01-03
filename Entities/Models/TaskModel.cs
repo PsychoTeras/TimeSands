@@ -5,7 +5,7 @@ using TimeSands.Entities.Enums;
 
 namespace TimeSands.Entities.Models
 {
-    internal class TaskModel : BaseModel
+    internal class TaskModel : BaseModel<TaskModel>
     {
         public string JiraId { get; set; }
 
@@ -22,6 +22,11 @@ namespace TimeSands.Entities.Models
         public SprintModel Sprint { get; set; }
 
         public List<TaskRecordModel> Records { get; }
+
+        public int SprintId
+        {
+            get { return Sprint?.Id ?? 0; }
+        }
 
         public string SprintName
         {
@@ -52,7 +57,7 @@ namespace TimeSands.Entities.Models
             }
         }
 
-        public TaskModel()
+        public TaskModel() : base(Tasks.Instance)
         {
             Records = new List<TaskRecordModel>();
         }

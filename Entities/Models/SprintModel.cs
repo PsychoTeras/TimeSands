@@ -3,7 +3,7 @@ using TimeSands.Entities.Enums;
 
 namespace TimeSands.Entities.Models
 {
-    internal class SprintModel : BaseModel
+    internal class SprintModel : BaseModel<SprintModel>
     {
         public string JiraId { get; set; }
 
@@ -11,13 +11,17 @@ namespace TimeSands.Entities.Models
 
         public DateTime CreateTime { get; set; }
 
-        public DateTime? UpdateTime { get; set; }
-
         public SprintState State { get; set; }
+
+        public bool IsActive { get; set; }
+
+        public SprintModel() : base(Sprints.Instance)
+        {
+        }
 
         public override string ToString()
         {
-            return Name;
+            return IsActive ? $"{Name} (active)" : Name;
         }
     }
 }

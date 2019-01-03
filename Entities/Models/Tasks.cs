@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using TimeSands.DAL;
 
 namespace TimeSands.Entities.Models
 {
-    internal class Tasks : List<TaskModel>
+    internal class Tasks : BaseCollectionModel<TaskModel, Tasks>
     {
+        protected Tasks() : base(Repository.Task)
+        {
+        }
     }
 }

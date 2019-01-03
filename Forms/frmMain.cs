@@ -11,10 +11,18 @@ namespace TimeSands.Forms
         {
             InitializeComponent();
 
-            SprintModel sprint = new SprintModel();
-            sprint.Name = "*";
+            Sprints sprints = Sprints.Instance;
 
-            Tasks tasks = new Tasks();
+            SprintModel sprint = sprints.Create();
+            sprint.Name = "New sprint";
+            sprint.Save();
+
+            int id = sprint.Id;
+            sprint = sprints.Get(id);
+
+            sprints.Delete(sprint);
+
+            Tasks tasks = Tasks.Instance;
             TaskModel task = new TaskModel();
             task.Name = "12345";
             task.CreateTime = DateTime.Now;
@@ -32,7 +40,7 @@ namespace TimeSands.Forms
             task.Records.Add(taskRecord1);
             task.Records.Add(taskRecord2);
 
-            tasks.Add(task);
+            tasks.Append(task);
             lvTasks.DataSource = tasks;
         }
     }

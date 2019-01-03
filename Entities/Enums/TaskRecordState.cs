@@ -2,7 +2,7 @@
 {
     internal enum TaskRecordState
     {
-        Active = 1,
+        Available = 1,
         Deleted
     }
 }
