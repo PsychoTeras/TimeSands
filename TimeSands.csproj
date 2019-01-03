@@ -40,23 +40,42 @@
     <ApplicationIcon>Resources\application.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BetterListViewExpress, Version=3.15.0.0, Culture=neutral, PublicKeyToken=e6c91a3add447be2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>_shared\BetterListViewExpress.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite">
       <HintPath>_shared\System.Data.SQLite.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\AppConfig.cs" />
+    <Compile Include="Controls\BorderedButtonBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\BorderedComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\BorderedPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\BorderedTableLayoutPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Constants.cs" />
+    <Compile Include="Controls\DrawingHelper.cs" />
+    <Compile Include="Controls\HorizontalDivider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TaskListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DAL\TaskDAL.cs" />
     <Compile Include="DAL\BaseDAL.cs" />
     <Compile Include="Entities\Enums\SprintState.cs" />
