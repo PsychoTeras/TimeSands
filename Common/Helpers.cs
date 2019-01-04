@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace TimeSands.Common
 {
     internal static class Helpers
     {
+        [DllImport("user32")]
+        public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, int wParam, int lParam);
+
         public static IEnumerable<Tuple<int, string>> EnumToKeyValue<T>()
         {
             Type t = typeof(T);

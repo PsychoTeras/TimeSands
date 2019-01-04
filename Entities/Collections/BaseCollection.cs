@@ -72,6 +72,7 @@ namespace TimeSands.Entities.Collections
         public virtual void Append(T model)
         {
             AssertModelNotExists(model);
+            model.SetOwner(this);
             Collection.Add(model);
         }
 

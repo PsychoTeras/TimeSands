@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IPCLogger.ConfigurationService.Forms;
+using System;
 using System.Linq;
 using System.Windows.Forms;
 using TimeSands.Entities.Collections;
@@ -14,7 +15,7 @@ namespace TimeSands.Forms
 
             //Boards boards = Boards.Instance;
             //BoardModel board = boards.Create();
-            //board.Name = "New board";
+            //board.Name = "Default";
             //board.Save();
 
             //Sprints sprints = Sprints.Instance;
@@ -45,16 +46,46 @@ namespace TimeSands.Forms
             InitializeControls();
         }
 
+        private void RefreshDataSources()
+        {
+            cbCurrentSprint.Refresh();
+            lvTasks.Refresh();
+        }
+
         private void InitializeControls()
         {
             cbCurrentSprint.SetDataSource(Sprints.Instance, "Name", () => Sprints.Instance.ActiveSprint);
             lvTasks.DataSource = Tasks.Instance;
+
+            timerRefreshTasks.Interval = 1000 * 60 * 1; //1 minute
+            timerRefreshTasks.Enabled = true;
+        }
+
+        private void timerRefreshTasks_Tick(object sender, EventArgs e)
+        {
+            lvTasks.Refresh();
+        }
+
+        private void btnTaskAdd_Click(object sender, EventArgs e)
+        {
+            using (frmManageTask form = new frmManageTask())
+            {
+                if (form.Execute())
+                {
+                    RefreshDataSources();
+                    lvTasks.SelectedValue = form.Result;
+                }
+            }
         }
 
         private void btnSprints_Click(object sender, EventArgs e)
         {
-            Tasks.Instance.First().Name = "12312312313";
-            lvTasks.Refresh();
+
+        }
+
+        private void lvTasks_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            object task = lvTasks.SelectedItems.FirstOrDefault() /*as TaskModel*/;
         }
     }
 }

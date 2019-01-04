@@ -30,7 +30,9 @@ namespace TimeSands.Entities.Models
 
         public override string ToString()
         {
-            return $"{Name} ({State.ToString()})";
+            return State == SprintState.Active
+                ? $"{Name} ({State.ToString()})"
+                : Name;
         }
     }
 }

@@ -45,6 +45,7 @@
       <HintPath>_shared\BetterListViewExpress.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite">
       <HintPath>_shared\System.Data.SQLite.dll</HintPath>
@@ -76,7 +77,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\Constants.cs" />
-    <Compile Include="Controls\DrawingHelper.cs" />
     <Compile Include="Controls\HorizontalDivider.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -112,6 +112,12 @@
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Common\Helpers.cs" />
+    <Compile Include="Forms\frmManageTask.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmManageTask.Designer.cs">
+      <DependentUpon>frmManageTask.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmSprints.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +128,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmManageTask.resx">
+      <DependentUpon>frmManageTask.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmSprints.resx">
       <DependentUpon>frmSprints.cs</DependentUpon>

@@ -30,6 +30,7 @@ namespace TimeSands.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.pTop = new System.Windows.Forms.Panel();
             this.hrTop = new TimeSands.Controls.HorizontalDivider();
@@ -50,6 +51,7 @@ namespace TimeSands.Forms
             this.lvhTimeSpent = new ComponentOwl.BetterListView.BetterListViewColumnHeader();
             this.pMainTop = new System.Windows.Forms.Panel();
             this.hrMainTop = new TimeSands.Controls.HorizontalDivider();
+            this.timerRefreshTasks = new System.Windows.Forms.Timer(this.components);
             this.pTop.SuspendLayout();
             this.tsTop.SuspendLayout();
             this.pMain.SuspendLayout();
@@ -65,7 +67,7 @@ namespace TimeSands.Forms
             this.pTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pTop.Location = new System.Drawing.Point(0, 0);
             this.pTop.Name = "pTop";
-            this.pTop.Size = new System.Drawing.Size(1191, 49);
+            this.pTop.Size = new System.Drawing.Size(993, 49);
             this.pTop.TabIndex = 1;
             // 
             // hrTop
@@ -73,7 +75,7 @@ namespace TimeSands.Forms
             this.hrTop.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.hrTop.Location = new System.Drawing.Point(0, 48);
             this.hrTop.Name = "hrTop";
-            this.hrTop.Size = new System.Drawing.Size(1191, 1);
+            this.hrTop.Size = new System.Drawing.Size(993, 1);
             this.hrTop.TabIndex = 1;
             // 
             // tsTop
@@ -93,7 +95,7 @@ namespace TimeSands.Forms
             this.tsTop.Location = new System.Drawing.Point(1, 0);
             this.tsTop.Name = "tsTop";
             this.tsTop.Padding = new System.Windows.Forms.Padding(1, 0, 10, 0);
-            this.tsTop.Size = new System.Drawing.Size(1191, 48);
+            this.tsTop.Size = new System.Drawing.Size(993, 48);
             this.tsTop.TabIndex = 0;
             // 
             // btnTaskAdd
@@ -105,6 +107,7 @@ namespace TimeSands.Forms
             this.btnTaskAdd.Size = new System.Drawing.Size(69, 45);
             this.btnTaskAdd.Text = "Add task";
             this.btnTaskAdd.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnTaskAdd.Click += new System.EventHandler(this.btnTaskAdd_Click);
             // 
             // cbCurrentSprint
             // 
@@ -118,6 +121,7 @@ namespace TimeSands.Forms
             // lblCurrentSprint
             // 
             this.lblCurrentSprint.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.lblCurrentSprint.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
             this.lblCurrentSprint.Name = "lblCurrentSprint";
             this.lblCurrentSprint.Size = new System.Drawing.Size(80, 45);
             this.lblCurrentSprint.Text = "Current sprint";
@@ -148,7 +152,7 @@ namespace TimeSands.Forms
             this.pMain.Location = new System.Drawing.Point(12, 64);
             this.pMain.Name = "pMain";
             this.pMain.Padding = new System.Windows.Forms.Padding(1);
-            this.pMain.Size = new System.Drawing.Size(1167, 657);
+            this.pMain.Size = new System.Drawing.Size(969, 632);
             this.pMain.TabIndex = 2;
             // 
             // pMainCenter
@@ -157,7 +161,7 @@ namespace TimeSands.Forms
             this.pMainCenter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pMainCenter.Location = new System.Drawing.Point(1, 46);
             this.pMainCenter.Name = "pMainCenter";
-            this.pMainCenter.Size = new System.Drawing.Size(1165, 610);
+            this.pMainCenter.Size = new System.Drawing.Size(967, 585);
             this.pMainCenter.TabIndex = 1;
             // 
             // lvTasks
@@ -175,8 +179,9 @@ namespace TimeSands.Forms
             this.lvTasks.Location = new System.Drawing.Point(0, 0);
             this.lvTasks.MultiSelect = false;
             this.lvTasks.Name = "lvTasks";
-            this.lvTasks.Size = new System.Drawing.Size(1165, 610);
+            this.lvTasks.Size = new System.Drawing.Size(967, 585);
             this.lvTasks.TabIndex = 0;
+            this.lvTasks.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvTasks_MouseDoubleClick);
             // 
             // lvhTask
             // 
@@ -227,7 +232,7 @@ namespace TimeSands.Forms
             this.pMainTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pMainTop.Location = new System.Drawing.Point(1, 1);
             this.pMainTop.Name = "pMainTop";
-            this.pMainTop.Size = new System.Drawing.Size(1165, 45);
+            this.pMainTop.Size = new System.Drawing.Size(967, 45);
             this.pMainTop.TabIndex = 0;
             // 
             // hrMainTop
@@ -235,14 +240,18 @@ namespace TimeSands.Forms
             this.hrMainTop.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.hrMainTop.Location = new System.Drawing.Point(0, 44);
             this.hrMainTop.Name = "hrMainTop";
-            this.hrMainTop.Size = new System.Drawing.Size(1165, 1);
+            this.hrMainTop.Size = new System.Drawing.Size(967, 1);
             this.hrMainTop.TabIndex = 2;
+            // 
+            // timerRefreshTasks
+            // 
+            this.timerRefreshTasks.Tick += new System.EventHandler(this.timerRefreshTasks_Tick);
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1191, 733);
+            this.ClientSize = new System.Drawing.Size(993, 708);
             this.Controls.Add(this.pMain);
             this.Controls.Add(this.pTop);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -281,6 +290,7 @@ namespace TimeSands.Forms
         private System.Windows.Forms.ToolStripLabel lblCurrentSprint;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton btnSprints;
+        private System.Windows.Forms.Timer timerRefreshTasks;
     }
 }
 

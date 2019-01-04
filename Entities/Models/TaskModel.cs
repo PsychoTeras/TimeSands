@@ -57,7 +57,7 @@ namespace TimeSands.Entities.Models
         public TaskModel() : base(Tasks.Instance)
         {
             _records = new TaskRecords();
-            _records.GetAll(("task_id", Id));
+            _records.GetAll(("task_id", Id)); //!!!
         }
 
         public void SetActive()

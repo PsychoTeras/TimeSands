@@ -11,6 +11,11 @@ namespace TimeSands.Entities.Models
 
         protected BaseModel(IBaseCollection<T> owner)
         {
+            SetOwner(owner);
+        }
+
+        public void SetOwner(IBaseCollection<T> owner)
+        {
             Owner = owner;
         }
 
@@ -22,6 +27,11 @@ namespace TimeSands.Entities.Models
         public virtual void Delete()
         {
             Owner.Delete((T)this);
+        }
+
+        public TC Clone<TC>() where TC : BaseModel<TC>, new()
+        {
+            return (TC)MemberwiseClone();
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using TimeSands.Common;
 
 namespace TimeSands.Controls
 {
@@ -41,6 +42,13 @@ namespace TimeSands.Controls
             set { _button.Padding = value; }
         }
 
+        [Browsable(true), DefaultValue(true)]
+        public bool ButtonEnabled
+        {
+            get { return _button.Enabled; }
+            set { _button.Enabled = value; }
+        }
+
         public BorderedButtonBox()
         {
             CreteButton();
@@ -69,7 +77,7 @@ namespace TimeSands.Controls
         {
             _button.Size = new Size(25, ClientSize.Height + 2);
             _button.Location = new Point(ClientSize.Width - _button.Width + 1, -1);
-            DrawingHelper.SendMessage(Handle, 0xd3, 2, _button.Width << 16);
+            Helpers.SendMessage(Handle, 0xd3, 2, _button.Width << 16);
         }
 
         protected override void OnEnabledChanged(EventArgs e)
