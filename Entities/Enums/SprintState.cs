@@ -2,8 +2,8 @@
 {
     internal enum SprintState
     {
-        Default,
-        Available,
+        Idle,
+        Active,
         Closed,
         Deleted
     }

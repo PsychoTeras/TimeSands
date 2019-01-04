@@ -1,24 +1,27 @@
-﻿namespace TimeSands.Entities.Models
+﻿using TimeSands.Entities.Collections;
+
+namespace TimeSands.Entities.Models
 {
     internal abstract class BaseModel<T>
         where T : BaseModel<T>, new()
     {
-        protected IBaseCollectionModel<T> Owner;
+        protected IBaseCollection<T> Owner;
 
         public int Id { get; set; }
 
-        public BaseModel(IBaseCollectionModel<T> owner)
+        protected BaseModel(IBaseCollection<T> owner)
         {
-            if (owner != null)
-            {
-                Owner = owner;
-                Owner.Append((T)this);
-            }
+            Owner = owner;
         }
 
         public virtual void Save()
         {
             Owner.Save((T)this);
+        }
+
+        public virtual void Delete()
+        {
+            Owner.Delete((T)this);
         }
     }
 }

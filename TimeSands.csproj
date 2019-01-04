@@ -51,6 +51,10 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ValueTuple, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>_shared\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -79,22 +83,28 @@
     <Compile Include="Controls\TaskListView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="DAL\BoardDAL.cs" />
     <Compile Include="DAL\IBaseCRUD.cs" />
     <Compile Include="DAL\Repository.cs" />
     <Compile Include="DAL\SprintDAL.cs" />
+    <Compile Include="DAL\TaskRecordDAL.cs" />
     <Compile Include="DAL\TaskDAL.cs" />
     <Compile Include="DAL\BaseDAL.cs" />
+    <Compile Include="Entities\Collections\BaseCollectionSingleton.cs" />
+    <Compile Include="Entities\Collections\Boards.cs" />
+    <Compile Include="Entities\Collections\TaskRecords.cs" />
+    <Compile Include="Entities\Enums\BoardState.cs" />
     <Compile Include="Entities\Enums\SprintState.cs" />
-    <Compile Include="Entities\Enums\TaskRecordState.cs" />
     <Compile Include="Entities\Enums\TaskState.cs" />
-    <Compile Include="Entities\Models\BaseCollectionModel.cs" />
+    <Compile Include="Entities\Collections\BaseCollection.cs" />
     <Compile Include="Entities\Models\BaseModel.cs" />
-    <Compile Include="Entities\Models\IBaseCollectionModel.cs" />
+    <Compile Include="Entities\Collections\IBaseCollection.cs" />
+    <Compile Include="Entities\Models\BoardModel.cs" />
     <Compile Include="Entities\Models\SprintModel.cs" />
-    <Compile Include="Entities\Models\Sprints.cs" />
+    <Compile Include="Entities\Collections\Sprints.cs" />
     <Compile Include="Entities\Models\TaskModel.cs" />
     <Compile Include="Entities\Models\TaskRecordModel.cs" />
-    <Compile Include="Entities\Models\Tasks.cs" />
+    <Compile Include="Entities\Collections\Tasks.cs" />
     <Compile Include="Forms\frmMain.cs">
       <SubType>Form</SubType>
     </Compile>

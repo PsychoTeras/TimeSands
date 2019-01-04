@@ -2,37 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using TimeSands.DAL;
+using TimeSands.Entities.Models;
 
-namespace TimeSands.Entities.Models
+namespace TimeSands.Entities.Collections
 {
-    internal abstract class BaseCollectionModel<T, TC> : IBaseCollectionModel<T>
+    internal abstract class BaseCollection<T, TC> : IBaseCollection<T>
         where T: BaseModel<T>, new() 
-        where TC: BaseCollectionModel<T, TC>
+        where TC: BaseCollection<T, TC>
     {
-        private static readonly TC _instance = (TC)Activator.CreateInstance(typeof(TC), true);
-
-        private bool _isLoaded;
         private IBaseCRUD<T> _dbObject;
 
-        protected List<T> Collection;        
+        protected List<T> Collection;
 
-        public static TC Instance
+        public bool ContainsListCollection
         {
-            get
-            {
-                if (!_instance._isLoaded)
-                {
-                    lock (_instance)
-                    {
-                        if (!_instance._isLoaded)
-                        {
-                            _instance._isLoaded = true;
-                            _instance.LoadFromDB();
-                        }
-                    }
-                }
-                return _instance;
-            }
+            get { return true; }
         }
 
         protected void AssertModelNotExists(T model)
@@ -47,11 +31,11 @@ namespace TimeSands.Entities.Models
         {
             if (model == null || Collection.IndexOf(model) == -1)
             {
-                throw new Exception("Item not exists");
+                throw new Exception("Item doesn't exists");
             }
         }
 
-        protected BaseCollectionModel(IBaseCRUD<T> dbObject)
+        protected BaseCollection(IBaseCRUD<T> dbObject)
         {
             _dbObject = dbObject;
             Collection = new List<T>();
@@ -59,7 +43,9 @@ namespace TimeSands.Entities.Models
 
         public virtual T Create()
         {
-            return new T();
+            T model = new T();
+            Collection.Add(model);
+            return model;
         }
 
         public virtual T Get(int id)
@@ -76,10 +62,11 @@ namespace TimeSands.Entities.Models
             return model;
         }
 
-        public virtual void LoadFromDB()
+        public virtual void GetAll(params (string, object)[] filter)
         {
             Collection.Clear();
-            _dbObject.GetAll();
+            ICollection<T> models = _dbObject.GetAll(filter);
+            Collection.AddRange(models);
         }
 
         public virtual void Append(T model)
@@ -120,6 +107,11 @@ namespace TimeSands.Entities.Models
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        public IList GetList()
+        {
+            return Collection;
         }
     }
 }

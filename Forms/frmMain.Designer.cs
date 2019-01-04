@@ -35,6 +35,10 @@ namespace TimeSands.Forms
             this.hrTop = new TimeSands.Controls.HorizontalDivider();
             this.tsTop = new System.Windows.Forms.ToolStrip();
             this.btnTaskAdd = new System.Windows.Forms.ToolStripButton();
+            this.cbCurrentSprint = new TimeSands.Controls.BorderedToolStripComboBox();
+            this.lblCurrentSprint = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnSprints = new System.Windows.Forms.ToolStripButton();
             this.pMain = new TimeSands.Controls.BorderedPanel();
             this.pMainCenter = new System.Windows.Forms.Panel();
             this.lvTasks = new TimeSands.Controls.TaskListView();
@@ -46,10 +50,6 @@ namespace TimeSands.Forms
             this.lvhTimeSpent = new ComponentOwl.BetterListView.BetterListViewColumnHeader();
             this.pMainTop = new System.Windows.Forms.Panel();
             this.hrMainTop = new TimeSands.Controls.HorizontalDivider();
-            this.cbCurrentSprint = new BorderedToolStripComboBox();
-            this.lblCurrentSprint = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnSprints = new System.Windows.Forms.ToolStripButton();
             this.pTop.SuspendLayout();
             this.tsTop.SuspendLayout();
             this.pMain.SuspendLayout();
@@ -105,6 +105,38 @@ namespace TimeSands.Forms
             this.btnTaskAdd.Size = new System.Drawing.Size(69, 45);
             this.btnTaskAdd.Text = "Add task";
             this.btnTaskAdd.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // cbCurrentSprint
+            // 
+            this.cbCurrentSprint.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.cbCurrentSprint.AutoSize = false;
+            this.cbCurrentSprint.DataSource = null;
+            this.cbCurrentSprint.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCurrentSprint.Name = "cbCurrentSprint";
+            this.cbCurrentSprint.Size = new System.Drawing.Size(200, 23);
+            // 
+            // lblCurrentSprint
+            // 
+            this.lblCurrentSprint.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.lblCurrentSprint.Name = "lblCurrentSprint";
+            this.lblCurrentSprint.Size = new System.Drawing.Size(80, 45);
+            this.lblCurrentSprint.Text = "Current sprint";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 48);
+            // 
+            // btnSprints
+            // 
+            this.btnSprints.AutoSize = false;
+            this.btnSprints.Image = ((System.Drawing.Image)(resources.GetObject("btnSprints.Image")));
+            this.btnSprints.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSprints.Name = "btnSprints";
+            this.btnSprints.Size = new System.Drawing.Size(69, 45);
+            this.btnSprints.Text = "Sprints";
+            this.btnSprints.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnSprints.Click += new System.EventHandler(this.btnSprints_Click);
             // 
             // pMain
             // 
@@ -173,14 +205,14 @@ namespace TimeSands.Forms
             this.lvhCreated.DisplayMember = "CreatedAt";
             this.lvhCreated.Name = "lvhCreated";
             this.lvhCreated.Text = "Created at";
-            this.lvhCreated.ValueMember = "CreatedAt";
+            this.lvhCreated.ValueMember = "CreateTime";
             // 
             // lvhClosed
             // 
             this.lvhClosed.DisplayMember = "ClosedAt";
             this.lvhClosed.Name = "lvhClosed";
-            this.lvhClosed.Text = "Closed at";
-            this.lvhClosed.ValueMember = "ClosedAt";
+            this.lvhClosed.Text = "Completed at";
+            this.lvhClosed.ValueMember = "CloseTime";
             // 
             // lvhTimeSpent
             // 
@@ -206,35 +238,6 @@ namespace TimeSands.Forms
             this.hrMainTop.Size = new System.Drawing.Size(1165, 1);
             this.hrMainTop.TabIndex = 2;
             // 
-            // cbCurrentSprint
-            // 
-            this.cbCurrentSprint.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.cbCurrentSprint.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbCurrentSprint.Name = "cbCurrentSprint";
-            this.cbCurrentSprint.Size = new System.Drawing.Size(121, 48);
-            // 
-            // lblCurrentSprint
-            // 
-            this.lblCurrentSprint.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.lblCurrentSprint.Name = "lblCurrentSprint";
-            this.lblCurrentSprint.Size = new System.Drawing.Size(80, 45);
-            this.lblCurrentSprint.Text = "Current sprint";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 48);
-            // 
-            // btnSprints
-            // 
-            this.btnSprints.AutoSize = false;
-            this.btnSprints.Image = ((System.Drawing.Image)(resources.GetObject("btnSprints.Image")));
-            this.btnSprints.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSprints.Name = "btnSprints";
-            this.btnSprints.Size = new System.Drawing.Size(69, 45);
-            this.btnSprints.Text = "Sprints";
-            this.btnSprints.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -246,7 +249,7 @@ namespace TimeSands.Forms
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Time Sands (0.1)";
+            this.Text = "Time Sands v0.1";
             this.pTop.ResumeLayout(false);
             this.tsTop.ResumeLayout(false);
             this.tsTop.PerformLayout();

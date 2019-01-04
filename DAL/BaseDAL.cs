@@ -95,6 +95,17 @@ VALUES
             }
         }
 
+        protected void ApplyFilter(SQLiteCommand command, params (string, object)[] filter)
+        {
+            int paramIdx = 0;
+            foreach ((string, object) tuple in filter)
+            {
+                string paramName = $"@_param_{paramIdx++}";
+                command.CommandText += $" AND {tuple.Item1} = {paramName}";
+                command.Parameters.Add(new SQLiteParameter(paramName, tuple.Item2));
+            }
+        }
+
         protected object StringOrDBNull(string str)
         {
             return string.IsNullOrEmpty(str) ? (object)DBNull.Value : str;
@@ -103,6 +114,11 @@ VALUES
         protected string StringOrNull(object val)
         {
             return val == DBNull.Value ? null : val.ToString();
+        }
+
+        protected object DateTimeOrDBNull(DateTime? dt)
+        {
+            return !dt.HasValue ? (object)DBNull.Value : dt.Value;
         }
 
         protected DateTime? DateTimeOrNull(object val)

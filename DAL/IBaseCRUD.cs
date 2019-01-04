@@ -8,7 +8,7 @@ namespace TimeSands.DAL
     {
         T Get(int id);
 
-        ICollection<T> GetAll();
+        ICollection<T> GetAll(params (string, object)[] filter);
 
         void Create(T model);
 

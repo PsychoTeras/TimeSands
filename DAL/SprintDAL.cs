@@ -19,12 +19,12 @@ INSERT INTO T_SPRINTS
     (jira_id, name, create_time, sprint_state_id)
 VALUES
     (@jira_id, @name, @create_time, @sprint_state_id);
-SELECT last_insert_rowid()";
-
+SELECT last_insert_rowid()
+";
                 command.Parameters.Add(new SQLiteParameter("@jira_id", sprint.JiraId));
                 command.Parameters.Add(new SQLiteParameter("@name", sprint.Name));
                 command.Parameters.Add(new SQLiteParameter("@create_time", sprint.CreateTime));
-                command.Parameters.Add(new SQLiteParameter("@sprint_state_id", SprintState.Available));
+                command.Parameters.Add(new SQLiteParameter("@sprint_state_id", SprintState.Idle));
 
                 try
                 {
@@ -43,11 +43,13 @@ SELECT last_insert_rowid()";
             {
                 command.CommandText = @"
 UPDATE T_SPRINTS
-SET sprint_state_id = @deleted_state
+SET
+     sprint_state_id = @state_deleted
+    ,update_time = CURRENT_TIMESTAMP
 WHERE id = @id
 ";
                 command.Parameters.Add(new SQLiteParameter("@id", sprint.Id));
-                command.Parameters.Add(new SQLiteParameter("@deleted_state", SprintState.Deleted));
+                command.Parameters.Add(new SQLiteParameter("@state_deleted", SprintState.Deleted));
                 command.ExecuteNonQuery();
             }
         }
@@ -60,8 +62,8 @@ WHERE id = @id
                 JiraId = StringOrNull(reader["jira_id"]),
                 Name = reader["name"].ToString(),
                 CreateTime = Convert.ToDateTime(reader["create_time"]),
-                State = (SprintState)Convert.ToInt32(reader["sprint_state_id"]),
-                IsActive = Convert.ToBoolean(reader["is_active"])
+                UpdateTime = DateTimeOrNull(reader["update_time"]),
+                State = (SprintState)Convert.ToInt32(reader["sprint_state_id"])
             };
         }
 
@@ -72,10 +74,9 @@ WHERE id = @id
                 command.CommandText = @"
 SELECT *
 FROM T_SPRINTS
-WHERE id = @id AND sprint_state_id <> @deleted_state
+WHERE id = @id
 ";
                 command.Parameters.Add(new SQLiteParameter("@id", id));
-                command.Parameters.Add(new SQLiteParameter("@deleted_state", SprintState.Deleted));
                 using (SQLiteDataReader reader = command.ExecuteReader())
                 {
                     if (reader.Read())
@@ -87,72 +88,51 @@ WHERE id = @id AND sprint_state_id <> @deleted_state
             return null;
         }
 
-        public ICollection<SprintModel> GetAll()
+        public ICollection<SprintModel> GetAll(params (string, object)[] filter)
         {
-            List<SprintModel> sprints = new List<SprintModel>();
+            List<SprintModel> models = new List<SprintModel>();
             using (SQLiteCommand command = new SQLiteCommand(Connection))
             {
                 command.CommandText = @"
 SELECT *
 FROM T_SPRINTS
-WHERE sprint_state_id <> @deleted_state
+WHERE sprint_state_id <> @state_deleted
 ";
-                command.Parameters.Add(new SQLiteParameter("@deleted_state", SprintState.Deleted));
+                ApplyFilter(command, filter);
+                command.Parameters.Add(new SQLiteParameter("@state_deleted", SprintState.Deleted));
                 using (SQLiteDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        sprints.Add(SprintModelFromReader(reader));
+                        models.Add(SprintModelFromReader(reader));
                     }
                 }
             }
-            return sprints;
+            return models;
         }
 
         public void Update(SprintModel sprint)
         {
             using (SQLiteCommand command = new SQLiteCommand(Connection))
             {
+                sprint.UpdateTime = DateTime.Now;
+
                 command.CommandText = @"
 UPDATE T_SPRINTS
 SET 
-     jira_id = @jira_id
-    ,name = @name
-    ,sprint_state_id = @sprint_state_id
-WHERE id = @id
+     jira_id = CASE WHEN id = @id THEN @jira_id ELSE jira_id END
+    ,name = CASE WHEN id = @id THEN @name ELSE name END
+    ,sprint_state_id = CASE WHEN id = @id THEN @sprint_state_id ELSE @state_idle END
+    ,update_time = @update_time
+WHERE id = @id OR (@sprint_state_id = @state_active AND sprint_state_id = @state_active)
 ";
                 command.Parameters.Add(new SQLiteParameter("@id", sprint.Id));
                 command.Parameters.Add(new SQLiteParameter("@jira_id", sprint.JiraId));
                 command.Parameters.Add(new SQLiteParameter("@name", sprint.Name));
+                command.Parameters.Add(new SQLiteParameter("@update_time", sprint.UpdateTime));
                 command.Parameters.Add(new SQLiteParameter("@sprint_state_id", sprint.State));
-                command.ExecuteNonQuery();
-            }
-        }
-
-        public void UpdateState(SprintModel sprint)
-        {
-            using (SQLiteCommand command = new SQLiteCommand(Connection))
-            {
-                command.CommandText = @"
-UPDATE T_SPRINTS
-SET sprint_state_id = @sprint_state_id
-WHERE id = @id
-";
-                command.Parameters.Add(new SQLiteParameter("@id", sprint.Id));
-                command.Parameters.Add(new SQLiteParameter("@sprint_state_id", sprint.State));
-                command.ExecuteNonQuery();
-            }
-        }
-
-        public void SetActive(SprintModel sprint)
-        {
-            using (SQLiteCommand command = new SQLiteCommand(Connection))
-            {
-                command.CommandText = @"
-UPDATE T_SPRINTS
-SET is_active = CASE WHEN id = @id THEN 1 ELSE 0 END
-";
-                command.Parameters.Add(new SQLiteParameter("@id", sprint.Id));
+                command.Parameters.Add(new SQLiteParameter("@state_idle", SprintState.Idle));
+                command.Parameters.Add(new SQLiteParameter("@state_active", SprintState.Active));
                 command.ExecuteNonQuery();
             }
         }
@@ -175,9 +155,9 @@ CREATE TABLE T_SPRINTS
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     jira_id TEXT(20) DEFAULT NULL,
     name TEXT(160) NOT NULL UNIQUE COLLATE NOCASE,
-    create_time TIMESTAMP NOT NULL,
+    create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_time TIMESTAMP DEFAULT NULL,
     sprint_state_id INTEGER NOT NULL,
-    is_active INTEGER NOT NULL DEFAULT 0,
 
     FOREIGN KEY(sprint_state_id) REFERENCES T_SPRINT_STATE(id)
 )";
@@ -191,13 +171,13 @@ CREATE TABLE T_SPRINTS
             //Insert Default Sprint
             command.CommandText = @"
 INSERT INTO T_SPRINTS
-    (name, sprint_state_id, is_active)
+    (name, sprint_state_id)
 VALUES
-    (@name, @sprint_state_id, 1)";
+    (@name, @sprint_state_id)";
 
             command.Parameters.Clear();
-            command.Parameters.Add(new SQLiteParameter("@name", SprintState.Default.ToString()));
-            command.Parameters.Add(new SQLiteParameter("@sprint_state_id", SprintState.Default));
+            command.Parameters.Add(new SQLiteParameter("@name", "Default"));
+            command.Parameters.Add(new SQLiteParameter("@sprint_state_id", SprintState.Active));
             command.ExecuteNonQuery();
         }
     }

@@ -1,8 +1,8 @@
 ﻿namespace TimeSands.Entities.Enums
 {
-    internal enum TaskRecordState
+    internal enum BoardState
     {
-        Available = 1,
+        Available,
         Deleted
     }
 }
