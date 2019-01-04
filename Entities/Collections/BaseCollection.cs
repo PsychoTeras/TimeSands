@@ -67,6 +67,10 @@ namespace TimeSands.Entities.Collections
             Collection.Clear();
             ICollection<T> models = _dbObject.GetAll(filter);
             Collection.AddRange(models);
+            foreach (T model in models)
+            {
+                model.SetOwner(this);
+            }
         }
 
         public virtual void Append(T model)

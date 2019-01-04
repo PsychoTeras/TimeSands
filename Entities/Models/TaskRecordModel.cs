@@ -11,7 +11,10 @@ namespace TimeSands.Entities.Models
 
         public DateTime? StopTime { get; set; }
 
-        public bool Suspended { get; set; }
+        public bool IsStopped
+        {
+            get { return StopTime.HasValue; }
+        }
 
         public TaskRecordModel() : base(null)
         {
@@ -21,21 +24,6 @@ namespace TimeSands.Entities.Models
         {
             TaskId = taskId;
             Owner = owner;
-        }
-
-        public void StopRecord()
-        {
-            Tasks.Instance.Get(TaskId).StopRecord(this);
-        }
-
-        public void SuspendRecord()
-        {
-            Tasks.Instance.Get(TaskId).SuspendRecord(this);
-        }
-
-        public void ResumeRecord()
-        {
-            Tasks.Instance.Get(TaskId).ResumeRecord(this);
         }
     }
 }

@@ -58,7 +58,7 @@ WHERE id = @id
 
         private TaskModel TaskModelFromReader(SQLiteDataReader reader)
         {
-            return new TaskModel
+            TaskModel task = new TaskModel
             {
                 Id = Convert.ToInt32(reader["id"]),
                 JiraId = StringOrNull(reader["jira_id"]),
@@ -70,6 +70,8 @@ WHERE id = @id
                 CloseTime = DateTimeOrNull(reader["close_time"]),
                 State = (TaskState)Convert.ToInt32(reader["task_state_id"])
             };
+            task.GetAllRecords();
+            return task;
         }
 
         public TaskModel Get(int id)

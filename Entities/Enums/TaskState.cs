@@ -4,6 +4,7 @@
     {
         Idle,
         Active,
+        Suspended,
         Closed,
         Deleted
     }

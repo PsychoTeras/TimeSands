@@ -1,8 +1,10 @@
 ﻿using IPCLogger.ConfigurationService.Forms;
 using System;
-using System.Linq;
+using System.Drawing;
 using System.Windows.Forms;
+using ComponentOwl.BetterListView;
 using TimeSands.Entities.Collections;
+using TimeSands.Entities.Enums;
 using TimeSands.Entities.Models;
 
 namespace TimeSands.Forms
@@ -13,10 +15,10 @@ namespace TimeSands.Forms
         {
             InitializeComponent();
 
-            //Boards boards = Boards.Instance;
-            //BoardModel board = boards.Create();
-            //board.Name = "Default";
-            //board.Save();
+            Boards boards = Boards.Instance;
+            BoardModel board = boards.Create();
+            board.Name = "Voice2Dox";
+            board.Save();
 
             //Sprints sprints = Sprints.Instance;
 
@@ -54,8 +56,13 @@ namespace TimeSands.Forms
 
         private void InitializeControls()
         {
+            cbCurrentSprint.BeginUpdate();
             cbCurrentSprint.SetDataSource(Sprints.Instance, "Name", () => Sprints.Instance.ActiveSprint);
+            cbCurrentSprint.EndUpdate();
+
+            lvTasks.BeginUpdate();
             lvTasks.DataSource = Tasks.Instance;
+            lvTasks.EndUpdate();
 
             timerRefreshTasks.Interval = 1000 * 60 * 1; //1 minute
             timerRefreshTasks.Enabled = true;
@@ -73,7 +80,6 @@ namespace TimeSands.Forms
                 if (form.Execute())
                 {
                     RefreshDataSources();
-                    lvTasks.SelectedValue = form.Result;
                 }
             }
         }
@@ -85,7 +91,47 @@ namespace TimeSands.Forms
 
         private void lvTasks_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            object task = lvTasks.SelectedItems.FirstOrDefault() /*as TaskModel*/;
+            if (lvTasks.SelectedItem is TaskModel task)
+            {
+                task.ToggleActive();
+                lvTasks.Refresh();
+            }
+        }
+
+        private void lvTasks_DrawItem(object sender, BetterListViewDrawItemEventArgs e)
+        {
+            int idxActivity = lvhActivity.Index;
+            Rectangle rectInner = e.ItemBounds.SubItemBounds[idxActivity].BoundsInner;
+            if (rectInner.Width <= 0 || rectInner.Height <= 0)
+            {
+                return;
+            }
+
+            TaskModel task = lvTasks.GetItem<TaskModel>(e.Item.Index);
+            if (task == null)
+            {
+                return;
+            }
+
+            BetterListViewSubItem subActivity = e.Item.SubItems[idxActivity];
+
+            Image image = null;
+            switch (task.State)
+            {
+                case TaskState.Idle:
+                    image = Resources.Resources.GreyBall;
+                    break;
+                case TaskState.Active:
+                    image = Resources.Resources.GreenBall;
+                    break;
+                case TaskState.Suspended:
+                    image = Resources.Resources.YellowBall;
+                    break;
+                case TaskState.Deleted:
+                    image = Resources.Resources.RedBall;
+                    break;
+            }
+            subActivity.Image = image;
         }
     }
 }

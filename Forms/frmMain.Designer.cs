@@ -52,6 +52,7 @@ namespace TimeSands.Forms
             this.pMainTop = new System.Windows.Forms.Panel();
             this.hrMainTop = new TimeSands.Controls.HorizontalDivider();
             this.timerRefreshTasks = new System.Windows.Forms.Timer(this.components);
+            this.lvhActivity = new ComponentOwl.BetterListView.BetterListViewColumnHeader();
             this.pTop.SuspendLayout();
             this.tsTop.SuspendLayout();
             this.pMain.SuspendLayout();
@@ -67,7 +68,7 @@ namespace TimeSands.Forms
             this.pTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pTop.Location = new System.Drawing.Point(0, 0);
             this.pTop.Name = "pTop";
-            this.pTop.Size = new System.Drawing.Size(993, 49);
+            this.pTop.Size = new System.Drawing.Size(1018, 49);
             this.pTop.TabIndex = 1;
             // 
             // hrTop
@@ -75,7 +76,7 @@ namespace TimeSands.Forms
             this.hrTop.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.hrTop.Location = new System.Drawing.Point(0, 48);
             this.hrTop.Name = "hrTop";
-            this.hrTop.Size = new System.Drawing.Size(993, 1);
+            this.hrTop.Size = new System.Drawing.Size(1018, 1);
             this.hrTop.TabIndex = 1;
             // 
             // tsTop
@@ -95,7 +96,7 @@ namespace TimeSands.Forms
             this.tsTop.Location = new System.Drawing.Point(1, 0);
             this.tsTop.Name = "tsTop";
             this.tsTop.Padding = new System.Windows.Forms.Padding(1, 0, 10, 0);
-            this.tsTop.Size = new System.Drawing.Size(993, 48);
+            this.tsTop.Size = new System.Drawing.Size(1018, 48);
             this.tsTop.TabIndex = 0;
             // 
             // btnTaskAdd
@@ -152,7 +153,7 @@ namespace TimeSands.Forms
             this.pMain.Location = new System.Drawing.Point(12, 64);
             this.pMain.Name = "pMain";
             this.pMain.Padding = new System.Windows.Forms.Padding(1);
-            this.pMain.Size = new System.Drawing.Size(969, 632);
+            this.pMain.Size = new System.Drawing.Size(994, 632);
             this.pMain.TabIndex = 2;
             // 
             // pMainCenter
@@ -161,12 +162,13 @@ namespace TimeSands.Forms
             this.pMainCenter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pMainCenter.Location = new System.Drawing.Point(1, 46);
             this.pMainCenter.Name = "pMainCenter";
-            this.pMainCenter.Size = new System.Drawing.Size(967, 585);
+            this.pMainCenter.Size = new System.Drawing.Size(992, 585);
             this.pMainCenter.TabIndex = 1;
             // 
             // lvTasks
             // 
             this.lvTasks.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lvTasks.Columns.Add(this.lvhActivity);
             this.lvTasks.Columns.Add(this.lvhTask);
             this.lvTasks.Columns.Add(this.lvhState);
             this.lvTasks.Columns.Add(this.lvhSprint);
@@ -179,8 +181,9 @@ namespace TimeSands.Forms
             this.lvTasks.Location = new System.Drawing.Point(0, 0);
             this.lvTasks.MultiSelect = false;
             this.lvTasks.Name = "lvTasks";
-            this.lvTasks.Size = new System.Drawing.Size(967, 585);
+            this.lvTasks.Size = new System.Drawing.Size(992, 585);
             this.lvTasks.TabIndex = 0;
+            this.lvTasks.DrawItem += new ComponentOwl.BetterListView.BetterListViewDrawItemEventHandler(this.lvTasks_DrawItem);
             this.lvTasks.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvTasks_MouseDoubleClick);
             // 
             // lvhTask
@@ -232,7 +235,7 @@ namespace TimeSands.Forms
             this.pMainTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pMainTop.Location = new System.Drawing.Point(1, 1);
             this.pMainTop.Name = "pMainTop";
-            this.pMainTop.Size = new System.Drawing.Size(967, 45);
+            this.pMainTop.Size = new System.Drawing.Size(992, 45);
             this.pMainTop.TabIndex = 0;
             // 
             // hrMainTop
@@ -240,18 +243,25 @@ namespace TimeSands.Forms
             this.hrMainTop.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.hrMainTop.Location = new System.Drawing.Point(0, 44);
             this.hrMainTop.Name = "hrMainTop";
-            this.hrMainTop.Size = new System.Drawing.Size(967, 1);
+            this.hrMainTop.Size = new System.Drawing.Size(992, 1);
             this.hrMainTop.TabIndex = 2;
             // 
             // timerRefreshTasks
             // 
             this.timerRefreshTasks.Tick += new System.EventHandler(this.timerRefreshTasks_Tick);
             // 
+            // lvhActivity
+            // 
+            this.lvhActivity.AllowResize = false;
+            this.lvhActivity.Name = "lvhActivity";
+            this.lvhActivity.Style = ComponentOwl.BetterListView.BetterListViewColumnHeaderStyle.Nonclickable;
+            this.lvhActivity.Width = 38;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(993, 708);
+            this.ClientSize = new System.Drawing.Size(1018, 708);
             this.Controls.Add(this.pMain);
             this.Controls.Add(this.pTop);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -291,6 +301,7 @@ namespace TimeSands.Forms
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton btnSprints;
         private System.Windows.Forms.Timer timerRefreshTasks;
+        private ComponentOwl.BetterListView.BetterListViewColumnHeader lvhActivity;
     }
 }
 

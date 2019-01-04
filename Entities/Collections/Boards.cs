@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using TimeSands.DAL;
-using TimeSands.Entities.Enums;
+﻿using TimeSands.DAL;
 using TimeSands.Entities.Models;
 
 namespace TimeSands.Entities.Collections

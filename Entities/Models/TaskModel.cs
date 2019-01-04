@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using TimeSands.Common;
 using TimeSands.Entities.Collections;
 using TimeSands.Entities.Enums;
@@ -57,47 +58,100 @@ namespace TimeSands.Entities.Models
         public TaskModel() : base(Tasks.Instance)
         {
             _records = new TaskRecords();
-            _records.GetAll(("task_id", Id)); //!!!
         }
 
-        public void SetActive()
+        public void GetAllRecords()
         {
-            if (State != TaskState.Active)
-            {
-                Tasks.Instance.ActiveTask = this;
-            }
+            _records.GetAll(("task_id", Id));
         }
 
-        public TaskRecordModel StartRecord()
+        public bool SetActive()
+        {
+            if (State != TaskState.Active && State != TaskState.Deleted)
+            {
+                foreach (TaskModel task in Tasks.Instance.Where(t => t != this))
+                {
+                    task.SetInactive();
+                }
+
+                switch (State)
+                {
+                    case TaskState.Idle:
+                    case TaskState.Closed:
+                        StartRecord();
+                        break;
+                }
+
+                State = TaskState.Active;
+                Save();
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool SetInactive()
+        {
+            if (State == TaskState.Active || State == TaskState.Suspended)
+            {
+                StopRecord();
+                State = TaskState.Idle;
+                Save();
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool ToggleActive()
+        {
+            return SetActive() || SetInactive();
+        }
+
+        private void StartRecord()
         {
             TaskRecordModel record = _records.Create();
             record.StartTime = DateTime.Now;
             record.Bind(Id, _records);
             record.Save();
-            return record;
         }
 
-        public void StopRecord(TaskRecordModel record)
+        private void StopRecord()
         {
+            TaskRecordModel record = _records.Last();
             record.StopTime = DateTime.Now;
             record.Save();
         }
 
-        public void SuspendRecord(TaskRecordModel record)
+        public void Suspend()
         {
-            if (!record.Suspended)
+            if (State == TaskState.Active)
             {
-                record.Suspended = true;
-                record.Save();
+                State = TaskState.Suspended;
+                Save();
             }
         }
 
-        public void ResumeRecord(TaskRecordModel record)
+        public void Resume()
         {
-            if (record.Suspended)
+            if (State == TaskState.Suspended)
             {
-                record.Suspended = false;
-                record.Save();
+                State = TaskState.Active;
+                Save();
+            }
+        }
+
+        public void Close()
+        {
+            if (State != TaskState.Closed && State != TaskState.Deleted)
+            {
+                TaskRecordModel record = _records.LastOrDefault();
+                if (record != null && !record.IsStopped)
+                {
+                    StopRecord();
+                }
+                State = TaskState.Closed;
+                Save();
             }
         }
 

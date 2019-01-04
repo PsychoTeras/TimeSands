@@ -44,8 +44,7 @@ WHERE id = @id
                 Id = Convert.ToInt32(reader["id"]),
                 TaskId = Convert.ToInt32(reader["task_id"]),
                 StartTime = Convert.ToDateTime(reader["start_time"]),
-                StopTime = DateTimeOrNull(reader["stop_time"]),
-                Suspended = Convert.ToInt32(reader["suspended"]) == 1
+                StopTime = DateTimeOrNull(reader["stop_time"])
             };
         }
 
@@ -100,12 +99,10 @@ WHERE 1 = 1
 UPDATE T_TASK_RECORDS
 SET
      stop_time = @stop_time
-    ,suspended = @suspended
-WHERE WHERE id = @id
+WHERE id = @id
 ";
                 command.Parameters.Add(new SQLiteParameter("@id", record.Id));
                 command.Parameters.Add(new SQLiteParameter("@stop_time", DateTimeOrDBNull(record.StopTime)));
-                command.Parameters.Add(new SQLiteParameter("@suspended", record.Suspended ? 1 : 0));
                 command.ExecuteNonQuery();
             }
         }
@@ -120,7 +117,6 @@ CREATE TABLE T_TASK_RECORDS
     task_id INTEGER NOT NULL,
     start_time TIMESTAMP NOT NULL,
     stop_time TIMESTAMP DEFAULT NULL,
-    suspended INTEGER NOT NULL DEFAULT 0,
 
     FOREIGN KEY(task_id) REFERENCES T_TASKS(id)
 )";

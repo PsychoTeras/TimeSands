@@ -63,9 +63,39 @@ namespace TimeSands.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap jira {
+        internal static System.Drawing.Bitmap bullet_ball_glass_green {
             get {
-                object obj = ResourceManager.GetObject("jira", resourceCulture);
+                object obj = ResourceManager.GetObject("bullet_ball_glass_green", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bullet_ball_glass_grey {
+            get {
+                object obj = ResourceManager.GetObject("bullet_ball_glass_grey", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bullet_ball_glass_red {
+            get {
+                object obj = ResourceManager.GetObject("bullet_ball_glass_red", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bullet_ball_glass_yellow {
+            get {
+                object obj = ResourceManager.GetObject("bullet_ball_glass_yellow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
