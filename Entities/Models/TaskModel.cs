@@ -31,9 +31,14 @@ namespace TimeSands.Entities.Models
             get { return Sprints.Instance.Get(SprintId)?.Name ?? string.Empty; }
         }
 
-        public string CreatedAt
+        public DateTime? StartTime
         {
-            get { return CreateTime.ToString(); }
+            get { return _records.FirstOrDefault()?.StartTime; }
+        }
+
+        public string StartedAt
+        {
+            get { return StartTime?.ToString(); }
         }
 
         public string ClosedAt

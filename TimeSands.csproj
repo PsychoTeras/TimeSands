@@ -159,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\application.ico" />
+    <None Include="Resources\bullet_ball_glass_blue.png" />
     <None Include="Resources\bullet_ball_glass_red.png" />
     <None Include="Resources\bullet_ball_glass_yellow.png" />
     <None Include="Resources\bullet_ball_glass_green.png" />

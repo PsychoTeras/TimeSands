@@ -1,6 +1,6 @@
 ﻿using TimeSands.Controls;
 
-namespace IPCLogger.ConfigurationService.Forms
+namespace TimeSands.Forms
 {
     partial class frmManageTask
     {
@@ -152,7 +152,7 @@ namespace IPCLogger.ConfigurationService.Forms
             // 
             this.tbName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbName.Location = new System.Drawing.Point(113, 6);
-            this.tbName.MaxLength = 39;
+            this.tbName.MaxLength = 255;
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(416, 23);
             this.tbName.TabIndex = 1;

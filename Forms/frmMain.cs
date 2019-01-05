@@ -1,5 +1,4 @@
-﻿using IPCLogger.ConfigurationService.Forms;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
 using ComponentOwl.BetterListView;
@@ -15,35 +14,10 @@ namespace TimeSands.Forms
         {
             InitializeComponent();
 
-            Boards boards = Boards.Instance;
-            BoardModel board = boards.Create();
-            board.Name = "Voice2Dox";
-            board.Save();
-
-            //Sprints sprints = Sprints.Instance;
-
-            //SprintModel sprint = sprints.Create();
-            //sprint.Name = "New sprint";
-            //sprint.Save();
-
-            //sprints.ActiveSprint = sprint;
-
-            //Tasks tasks = Tasks.Instance;
-            //TaskModel task = tasks.Create(board.Id, sprint.Id);
-            //task.Name = "12345";
-
-            //////TaskRecordModel taskRecord1 = new TaskRecordModel();
-            //////taskRecord1.StartTime = DateTime.Now;
-            //////taskRecord1.StopTime = taskRecord1.StartTime.AddHours(1);
-
-            //////TaskRecordModel taskRecord2 = new TaskRecordModel();
-            //////taskRecord2.StartTime = DateTime.Now.AddDays(1);
-            //////taskRecord2.StopTime = taskRecord2.StartTime.AddHours(2).AddMinutes(35);
-
-            //////task.Records.Add(taskRecord1);
-            //////task.Records.Add(taskRecord2);
-
-            //task.Save();
+            //Boards boards = Boards.Instance;
+            //BoardModel board = boards.Create();
+            //board.Name = "Voice2Dox";
+            //board.Save();
 
             InitializeControls();
         }
@@ -91,7 +65,8 @@ namespace TimeSands.Forms
 
         private void lvTasks_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (lvTasks.SelectedItem is TaskModel task)
+            BetterListViewItem lvItem = lvTasks.GetItemAt(e.Location);
+            if (lvItem != null && lvTasks.GetItem<TaskModel>(lvItem.Address.Index) is TaskModel task)
             {
                 task.ToggleActive();
                 lvTasks.Refresh();
@@ -107,7 +82,7 @@ namespace TimeSands.Forms
                 return;
             }
 
-            TaskModel task = lvTasks.GetItem<TaskModel>(e.Item.Index);
+            TaskModel task = lvTasks.GetItem<TaskModel>(e.Item.Address.Index);
             if (task == null)
             {
                 return;
@@ -129,6 +104,9 @@ namespace TimeSands.Forms
                     break;
                 case TaskState.Deleted:
                     image = Resources.Resources.RedBall;
+                    break;
+                case TaskState.Closed:
+                    image = Resources.Resources.BlueBall;
                     break;
             }
             subActivity.Image = image;

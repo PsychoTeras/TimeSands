@@ -4,12 +4,13 @@ using System.Windows.Forms;
 using TimeSands.Entities.Collections;
 using TimeSands.Entities.Models;
 
-namespace IPCLogger.ConfigurationService.Forms
+namespace TimeSands.Forms
 {
     internal partial class frmManageTask : Form
     {
         private bool _editing;
         private TaskModel _taskModel;
+        private static int _lastBoardId;
 
         public TaskModel Result { get; private set; }
 
@@ -18,7 +19,7 @@ namespace IPCLogger.ConfigurationService.Forms
             InitializeComponent();
         }
 
-        private void BtnOkClick(object sender, System.EventArgs e)
+        private void BtnOkClick(object sender, EventArgs e)
         {
             Ok();
         }
@@ -97,7 +98,7 @@ namespace IPCLogger.ConfigurationService.Forms
             Text = !_editing ? "Add task" : "Edit task";
             tbName.Text = _taskModel.Name;
             cbBoard.SetDataSource(Boards.Instance, null, 
-                () => Boards.Instance.Get(_taskModel.BoardId));
+                () => Boards.Instance.Get(_editing ? _taskModel.BoardId : _lastBoardId));
             cbSprint.SetDataSource(Sprints.Instance, null, 
                 () => _editing ? Sprints.Instance.Get(_taskModel.SprintId) : Sprints.Instance.ActiveSprint);
             cbMakeActive.Visible = !_editing;
@@ -128,6 +129,7 @@ namespace IPCLogger.ConfigurationService.Forms
             _taskModel.Name = tbName.Text.Trim();
             _taskModel.BoardId = ((BoardModel)cbBoard.SelectedItem).Id;
             _taskModel.SprintId = ((SprintModel)cbSprint.SelectedItem).Id;
+            _lastBoardId = _taskModel.BoardId;
         }
 
         private void SaveChanges()
