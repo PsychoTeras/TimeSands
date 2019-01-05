@@ -132,6 +132,7 @@ namespace TimeSands.Entities.Models
         {
             if (State == TaskState.Active)
             {
+                StopRecord();
                 State = TaskState.Suspended;
                 Save();
             }
@@ -141,6 +142,7 @@ namespace TimeSands.Entities.Models
         {
             if (State == TaskState.Suspended)
             {
+                StartRecord();
                 State = TaskState.Active;
                 Save();
             }
