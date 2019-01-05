@@ -20,6 +20,8 @@ namespace TimeSands.Forms
             //board.Save();
 
             InitializeControls();
+
+            Tasks.Instance.ActiveTask?.Resume();
         }
 
         private void RefreshDataSources()
@@ -110,6 +112,11 @@ namespace TimeSands.Forms
                     break;
             }
             subActivity.Image = image;
+        }
+
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Tasks.Instance.ActiveTask?.Suspend();
         }
     }
 }

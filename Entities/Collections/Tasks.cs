@@ -8,7 +8,10 @@ namespace TimeSands.Entities.Collections
     {
         public TaskModel ActiveTask
         {
-            get { return Collection.Find(m => m.State == TaskState.Active); }
+            get
+            {
+                return Collection.Find(m => m.State == TaskState.Active || m.State == TaskState.Suspended); 
+            }
         }
 
         public TaskModel Create(int boardId, int sprintId)

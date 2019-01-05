@@ -272,6 +272,7 @@ namespace TimeSands.Forms
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Time Sands v0.1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.pTop.ResumeLayout(false);
             this.tsTop.ResumeLayout(false);
             this.tsTop.PerformLayout();
