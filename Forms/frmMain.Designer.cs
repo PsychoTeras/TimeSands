@@ -51,6 +51,16 @@ namespace TimeSands.Forms
             this.lvhClosed = new ComponentOwl.BetterListView.BetterListViewColumnHeader();
             this.lvhTimeSpent = new ComponentOwl.BetterListView.BetterListViewColumnHeader();
             this.pMainTop = new System.Windows.Forms.Panel();
+            this.tsTasks = new System.Windows.Forms.ToolStrip();
+            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.hrMainTop = new TimeSands.Controls.HorizontalDivider();
             this.timerRefreshTasks = new System.Windows.Forms.Timer(this.components);
             this.pTop.SuspendLayout();
@@ -59,6 +69,7 @@ namespace TimeSands.Forms
             this.pMainCenter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lvTasks)).BeginInit();
             this.pMainTop.SuspendLayout();
+            this.tsTasks.SuspendLayout();
             this.SuspendLayout();
             // 
             // pTop
@@ -122,9 +133,9 @@ namespace TimeSands.Forms
             // lblCurrentSprint
             // 
             this.lblCurrentSprint.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.lblCurrentSprint.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.lblCurrentSprint.Margin = new System.Windows.Forms.Padding(0, 1, 1, 1);
             this.lblCurrentSprint.Name = "lblCurrentSprint";
-            this.lblCurrentSprint.Size = new System.Drawing.Size(80, 45);
+            this.lblCurrentSprint.Size = new System.Drawing.Size(80, 46);
             this.lblCurrentSprint.Text = "Current sprint";
             // 
             // toolStripSeparator1
@@ -150,19 +161,19 @@ namespace TimeSands.Forms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pMain.Controls.Add(this.pMainCenter);
             this.pMain.Controls.Add(this.pMainTop);
-            this.pMain.Location = new System.Drawing.Point(12, 64);
+            this.pMain.Location = new System.Drawing.Point(12, 61);
             this.pMain.Name = "pMain";
             this.pMain.Padding = new System.Windows.Forms.Padding(1);
-            this.pMain.Size = new System.Drawing.Size(1187, 692);
+            this.pMain.Size = new System.Drawing.Size(1187, 695);
             this.pMain.TabIndex = 2;
             // 
             // pMainCenter
             // 
             this.pMainCenter.Controls.Add(this.lvTasks);
             this.pMainCenter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pMainCenter.Location = new System.Drawing.Point(1, 46);
+            this.pMainCenter.Location = new System.Drawing.Point(1, 44);
             this.pMainCenter.Name = "pMainCenter";
-            this.pMainCenter.Size = new System.Drawing.Size(1185, 645);
+            this.pMainCenter.Size = new System.Drawing.Size(1185, 650);
             this.pMainCenter.TabIndex = 1;
             // 
             // lvTasks
@@ -181,7 +192,7 @@ namespace TimeSands.Forms
             this.lvTasks.Location = new System.Drawing.Point(0, 0);
             this.lvTasks.MultiSelect = false;
             this.lvTasks.Name = "lvTasks";
-            this.lvTasks.Size = new System.Drawing.Size(1185, 645);
+            this.lvTasks.Size = new System.Drawing.Size(1185, 650);
             this.lvTasks.SortedColumnsRowsHighlight = ComponentOwl.BetterListView.BetterListViewSortedColumnsRowsHighlight.ShowAlways;
             this.lvTasks.TabIndex = 0;
             this.lvTasks.DrawItem += new ComponentOwl.BetterListView.BetterListViewDrawItemEventHandler(this.lvTasks_DrawItem);
@@ -241,17 +252,120 @@ namespace TimeSands.Forms
             // 
             // pMainTop
             // 
+            this.pMainTop.Controls.Add(this.tsTasks);
             this.pMainTop.Controls.Add(this.hrMainTop);
             this.pMainTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pMainTop.Location = new System.Drawing.Point(1, 1);
             this.pMainTop.Name = "pMainTop";
-            this.pMainTop.Size = new System.Drawing.Size(1185, 45);
+            this.pMainTop.Size = new System.Drawing.Size(1185, 43);
             this.pMainTop.TabIndex = 0;
+            // 
+            // tsTasks
+            // 
+            this.tsTasks.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tsTasks.AutoSize = false;
+            this.tsTasks.Dock = System.Windows.Forms.DockStyle.None;
+            this.tsTasks.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.tsTasks.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.tsTasks.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton4,
+            this.toolStripButton5,
+            this.toolStripButton6,
+            this.toolStripButton3,
+            this.toolStripSeparator2,
+            this.toolStripButton1,
+            this.toolStripButton2,
+            this.toolStripSeparator3,
+            this.toolStripLabel1});
+            this.tsTasks.Location = new System.Drawing.Point(-1, -1);
+            this.tsTasks.Name = "tsTasks";
+            this.tsTasks.Padding = new System.Windows.Forms.Padding(2, 2, 10, 0);
+            this.tsTasks.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.tsTasks.Size = new System.Drawing.Size(1211, 43);
+            this.tsTasks.TabIndex = 4;
+            // 
+            // toolStripButton4
+            // 
+            this.toolStripButton4.AutoSize = false;
+            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
+            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton4.Name = "toolStripButton4";
+            this.toolStripButton4.Size = new System.Drawing.Size(60, 40);
+            this.toolStripButton4.Text = "Start";
+            this.toolStripButton4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // toolStripButton5
+            // 
+            this.toolStripButton5.AutoSize = false;
+            this.toolStripButton5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton5.Image")));
+            this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton5.Name = "toolStripButton5";
+            this.toolStripButton5.Size = new System.Drawing.Size(60, 40);
+            this.toolStripButton5.Text = "Suspend";
+            this.toolStripButton5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // toolStripButton6
+            // 
+            this.toolStripButton6.AutoSize = false;
+            this.toolStripButton6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton6.Image")));
+            this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton6.Name = "toolStripButton6";
+            this.toolStripButton6.Size = new System.Drawing.Size(60, 40);
+            this.toolStripButton6.Text = "Stop";
+            this.toolStripButton6.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.AutoSize = false;
+            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(63, 40);
+            this.toolStripButton3.Text = "Complete";
+            this.toolStripButton3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 41);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.AutoSize = false;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(60, 40);
+            this.toolStripButton1.Text = "Modify";
+            this.toolStripButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.AutoSize = false;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(60, 40);
+            this.toolStripButton2.Text = "Delete";
+            this.toolStripButton2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 41);
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Margin = new System.Windows.Forms.Padding(5, 1, 0, 2);
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(50, 38);
+            this.toolStripLabel1.Text = "Filtering";
             // 
             // hrMainTop
             // 
             this.hrMainTop.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.hrMainTop.Location = new System.Drawing.Point(0, 44);
+            this.hrMainTop.Location = new System.Drawing.Point(0, 42);
             this.hrMainTop.Name = "hrMainTop";
             this.hrMainTop.Size = new System.Drawing.Size(1185, 1);
             this.hrMainTop.TabIndex = 2;
@@ -280,6 +394,8 @@ namespace TimeSands.Forms
             this.pMainCenter.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.lvTasks)).EndInit();
             this.pMainTop.ResumeLayout(false);
+            this.tsTasks.ResumeLayout(false);
+            this.tsTasks.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -306,6 +422,16 @@ namespace TimeSands.Forms
         private System.Windows.Forms.ToolStripButton btnSprints;
         private System.Windows.Forms.Timer timerRefreshTasks;
         private ComponentOwl.BetterListView.BetterListViewColumnHeader lvhActivity;
+        private System.Windows.Forms.ToolStrip tsTasks;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripButton toolStripButton3;
+        private System.Windows.Forms.ToolStripButton toolStripButton4;
+        private System.Windows.Forms.ToolStripButton toolStripButton5;
+        private System.Windows.Forms.ToolStripButton toolStripButton6;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
     }
 }
 

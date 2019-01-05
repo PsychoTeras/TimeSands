@@ -95,7 +95,7 @@ namespace TimeSands.Forms
 
         private void BindModels()
         {
-            Text = !_editing ? "Add task" : "Edit task";
+            Text = !_editing ? "Add task" : "Modify task";
             tbName.Text = _taskModel.Name;
             cbBoard.SetDataSource(Boards.Instance, null, 
                 () => Boards.Instance.Get(_editing ? _taskModel.BoardId : _lastBoardId));
