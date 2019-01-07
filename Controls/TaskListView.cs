@@ -20,9 +20,16 @@ namespace TimeSands.Controls
             return Bindings.List[idx] as T;
         }
 
+        public void Repaint()
+        {
+            base.Refresh();
+        }
+
         public override void Refresh()
         {
+            BeginUpdate();
             Bindings?.Refresh();
+            EndUpdate();
         }
     }
 }

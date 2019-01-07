@@ -38,18 +38,19 @@ namespace TimeSands.Forms
 
             lvTasks.BeginUpdate();
             lvTasks.DataSource = Tasks.Instance;
+            lvTasks.SelectedItems.Clear();
             lvTasks.EndUpdate();
 
             timerRefreshTasks.Interval = 1000 * 60 * 1; //1 minute
             timerRefreshTasks.Enabled = true;
         }
 
-        private void timerRefreshTasks_Tick(object sender, EventArgs e)
+        private void TimerRefreshTasksTick(object sender, EventArgs e)
         {
             lvTasks.Refresh();
         }
 
-        private void btnTaskAdd_Click(object sender, EventArgs e)
+        private void AddTask()
         {
             using (frmManageTask form = new frmManageTask())
             {
@@ -60,22 +61,130 @@ namespace TimeSands.Forms
             }
         }
 
-        private void btnSprints_Click(object sender, EventArgs e)
+        private void BtnTaskAddClick(object sender, EventArgs e)
         {
-
+            AddTask();
         }
 
-        private void lvTasks_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void StartTask()
+        {
+            if (lvTasks.SelectedItem is TaskModel task)
+            {
+                task.Start();
+                UpdateTaskButtons();
+            }
+        }
+
+        private void BtnTaskStartClick(object sender, EventArgs e)
+        {
+            StartTask();
+        }
+
+        private void SuspendTask()
+        {
+            if (lvTasks.SelectedItem is TaskModel task)
+            {
+                task.Suspend();
+                UpdateTaskButtons();
+            }
+        }
+
+        private void BtnTaskSuspendClick(object sender, EventArgs e)
+        {
+            SuspendTask();
+        }
+
+        private void StopTask()
+        {
+            if (lvTasks.SelectedItem is TaskModel task)
+            {
+                task.Stop();
+                UpdateTaskButtons();
+            }
+        }
+
+        private void BtnTaskStopClick(object sender, EventArgs e)
+        {
+            StopTask();
+        }
+
+        private void CloseTask()
+        {
+            if (lvTasks.SelectedItem is TaskModel task)
+            {
+                task.Close();
+                UpdateTaskButtons();
+            }
+        }
+
+        private void BtnTaskCloseClick(object sender, EventArgs e)
+        {
+            CloseTask();
+        }
+
+        private void ModifyTask()
+        {
+            using (frmManageTask form = new frmManageTask())
+            {
+                if (form.Execute(lvTasks.SelectedItem as TaskModel))
+                {
+                    RefreshDataSources();
+                }
+            }
+        }
+
+        private void BtnTaskModifyClick(object sender, EventArgs e)
+        {
+            ModifyTask();
+        }
+
+        private void DeleteTask()
+        {
+            UpdateTaskButtons();
+        }
+
+        private void BtnTaskDeleteClick(object sender, EventArgs e)
+        {
+            if (lvTasks.SelectedItem is TaskModel task)
+            {
+                task.Delete();
+                lvTasks.Refresh();
+                UpdateTaskButtons();
+            }
+        }
+
+        private void BtnSprintsClick(object sender, EventArgs e)
+        {
+        }
+
+        private void UpdateTaskButtons()
+        {
+            TaskModel task = lvTasks.SelectedValue as TaskModel;
+            bool taskSelected = task != null;
+            btnTaskStart.Enabled = taskSelected && task.CanStart;
+            btnTaskSuspend.Enabled = taskSelected && task.CanSuspend;
+            btnTaskStop.Enabled = taskSelected && task.CanStop;
+            btnTaskClose.Enabled = taskSelected && task.CanClose;
+            btnTaskDelete.Enabled = btnTaskModify.Enabled = taskSelected;
+            lvTasks.Repaint();
+        }
+
+        private void LvTasksSelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateTaskButtons();
+        }
+
+        private void LvTasksMouseDoubleClick(object sender, MouseEventArgs e)
         {
             BetterListViewItem lvItem = lvTasks.GetItemAt(e.Location);
             if (lvItem != null && lvTasks.GetItem<TaskModel>(lvItem.Address.Index) is TaskModel task)
             {
                 task.ToggleActive();
-                lvTasks.Refresh();
+                UpdateTaskButtons();
             }
         }
 
-        private void lvTasks_DrawItem(object sender, BetterListViewDrawItemEventArgs e)
+        private void LvTasksDrawItem(object sender, BetterListViewDrawItemEventArgs e)
         {
             int idxActivity = lvhActivity.Index;
             Rectangle rectInner = e.ItemBounds.SubItemBounds[idxActivity].BoundsInner;
@@ -114,7 +223,12 @@ namespace TimeSands.Forms
             subActivity.Image = image;
         }
 
-        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        private void FrmMainLoad(object sender, EventArgs e)
+        {
+            UpdateTaskButtons();
+        }
+
+        private void FrmMainClosing(object sender, FormClosingEventArgs e)
         {
             Tasks.Instance.ActiveTask?.Suspend();
         }

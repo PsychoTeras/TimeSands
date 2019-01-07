@@ -137,7 +137,7 @@ namespace TimeSands.Forms
             _taskModel.Save();
             if (cbMakeActive.Checked)
             {
-                _taskModel.SetActive();
+                _taskModel.Start();
             }
         }
     }

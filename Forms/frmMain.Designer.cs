@@ -52,13 +52,13 @@ namespace TimeSands.Forms
             this.lvhTimeSpent = new ComponentOwl.BetterListView.BetterListViewColumnHeader();
             this.pMainTop = new System.Windows.Forms.Panel();
             this.tsTasks = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this.btnTaskStart = new System.Windows.Forms.ToolStripButton();
+            this.btnTaskSuspend = new System.Windows.Forms.ToolStripButton();
+            this.btnTaskStop = new System.Windows.Forms.ToolStripButton();
+            this.btnTaskClose = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.btnTaskModify = new System.Windows.Forms.ToolStripButton();
+            this.btnTaskDelete = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.hrMainTop = new TimeSands.Controls.HorizontalDivider();
@@ -119,7 +119,7 @@ namespace TimeSands.Forms
             this.btnTaskAdd.Size = new System.Drawing.Size(69, 45);
             this.btnTaskAdd.Text = "Add task";
             this.btnTaskAdd.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnTaskAdd.Click += new System.EventHandler(this.btnTaskAdd_Click);
+            this.btnTaskAdd.Click += new System.EventHandler(this.BtnTaskAddClick);
             // 
             // cbCurrentSprint
             // 
@@ -152,7 +152,7 @@ namespace TimeSands.Forms
             this.btnSprints.Size = new System.Drawing.Size(69, 45);
             this.btnSprints.Text = "Sprints";
             this.btnSprints.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnSprints.Click += new System.EventHandler(this.btnSprints_Click);
+            this.btnSprints.Click += new System.EventHandler(this.BtnSprintsClick);
             // 
             // pMain
             // 
@@ -195,8 +195,9 @@ namespace TimeSands.Forms
             this.lvTasks.Size = new System.Drawing.Size(1185, 650);
             this.lvTasks.SortedColumnsRowsHighlight = ComponentOwl.BetterListView.BetterListViewSortedColumnsRowsHighlight.ShowAlways;
             this.lvTasks.TabIndex = 0;
-            this.lvTasks.DrawItem += new ComponentOwl.BetterListView.BetterListViewDrawItemEventHandler(this.lvTasks_DrawItem);
-            this.lvTasks.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvTasks_MouseDoubleClick);
+            this.lvTasks.DrawItem += new ComponentOwl.BetterListView.BetterListViewDrawItemEventHandler(this.LvTasksDrawItem);
+            this.lvTasks.SelectedIndexChanged += new System.EventHandler(this.LvTasksSelectedIndexChanged);
+            this.lvTasks.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.LvTasksMouseDoubleClick);
             // 
             // lvhActivity
             // 
@@ -269,13 +270,13 @@ namespace TimeSands.Forms
             this.tsTasks.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.tsTasks.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.tsTasks.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton4,
-            this.toolStripButton5,
-            this.toolStripButton6,
-            this.toolStripButton3,
+            this.btnTaskStart,
+            this.btnTaskSuspend,
+            this.btnTaskStop,
+            this.btnTaskClose,
             this.toolStripSeparator2,
-            this.toolStripButton1,
-            this.toolStripButton2,
+            this.btnTaskModify,
+            this.btnTaskDelete,
             this.toolStripSeparator3,
             this.toolStripLabel1});
             this.tsTasks.Location = new System.Drawing.Point(-1, -1);
@@ -285,70 +286,76 @@ namespace TimeSands.Forms
             this.tsTasks.Size = new System.Drawing.Size(1211, 43);
             this.tsTasks.TabIndex = 4;
             // 
-            // toolStripButton4
+            // btnTaskStart
             // 
-            this.toolStripButton4.AutoSize = false;
-            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
-            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(60, 40);
-            this.toolStripButton4.Text = "Start";
-            this.toolStripButton4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnTaskStart.AutoSize = false;
+            this.btnTaskStart.Image = ((System.Drawing.Image)(resources.GetObject("btnTaskStart.Image")));
+            this.btnTaskStart.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnTaskStart.Name = "btnTaskStart";
+            this.btnTaskStart.Size = new System.Drawing.Size(60, 40);
+            this.btnTaskStart.Text = "Start";
+            this.btnTaskStart.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnTaskStart.Click += new System.EventHandler(this.BtnTaskStartClick);
             // 
-            // toolStripButton5
+            // btnTaskSuspend
             // 
-            this.toolStripButton5.AutoSize = false;
-            this.toolStripButton5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton5.Image")));
-            this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton5.Name = "toolStripButton5";
-            this.toolStripButton5.Size = new System.Drawing.Size(60, 40);
-            this.toolStripButton5.Text = "Suspend";
-            this.toolStripButton5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnTaskSuspend.AutoSize = false;
+            this.btnTaskSuspend.Image = ((System.Drawing.Image)(resources.GetObject("btnTaskSuspend.Image")));
+            this.btnTaskSuspend.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnTaskSuspend.Name = "btnTaskSuspend";
+            this.btnTaskSuspend.Size = new System.Drawing.Size(60, 40);
+            this.btnTaskSuspend.Text = "Suspend";
+            this.btnTaskSuspend.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnTaskSuspend.Click += new System.EventHandler(this.BtnTaskSuspendClick);
             // 
-            // toolStripButton6
+            // btnTaskStop
             // 
-            this.toolStripButton6.AutoSize = false;
-            this.toolStripButton6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton6.Image")));
-            this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton6.Name = "toolStripButton6";
-            this.toolStripButton6.Size = new System.Drawing.Size(60, 40);
-            this.toolStripButton6.Text = "Stop";
-            this.toolStripButton6.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnTaskStop.AutoSize = false;
+            this.btnTaskStop.Image = ((System.Drawing.Image)(resources.GetObject("btnTaskStop.Image")));
+            this.btnTaskStop.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnTaskStop.Name = "btnTaskStop";
+            this.btnTaskStop.Size = new System.Drawing.Size(60, 40);
+            this.btnTaskStop.Text = "Stop";
+            this.btnTaskStop.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnTaskStop.Click += new System.EventHandler(this.BtnTaskStopClick);
             // 
-            // toolStripButton3
+            // btnTaskClose
             // 
-            this.toolStripButton3.AutoSize = false;
-            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
-            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(63, 40);
-            this.toolStripButton3.Text = "Complete";
-            this.toolStripButton3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnTaskClose.AutoSize = false;
+            this.btnTaskClose.Image = ((System.Drawing.Image)(resources.GetObject("btnTaskClose.Image")));
+            this.btnTaskClose.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnTaskClose.Name = "btnTaskClose";
+            this.btnTaskClose.Size = new System.Drawing.Size(60, 40);
+            this.btnTaskClose.Text = "Close";
+            this.btnTaskClose.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnTaskClose.Click += new System.EventHandler(this.BtnTaskCloseClick);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 41);
             // 
-            // toolStripButton1
+            // btnTaskModify
             // 
-            this.toolStripButton1.AutoSize = false;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(60, 40);
-            this.toolStripButton1.Text = "Modify";
-            this.toolStripButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnTaskModify.AutoSize = false;
+            this.btnTaskModify.Image = ((System.Drawing.Image)(resources.GetObject("btnTaskModify.Image")));
+            this.btnTaskModify.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnTaskModify.Name = "btnTaskModify";
+            this.btnTaskModify.Size = new System.Drawing.Size(60, 40);
+            this.btnTaskModify.Text = "Modify";
+            this.btnTaskModify.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnTaskModify.Click += new System.EventHandler(this.BtnTaskModifyClick);
             // 
-            // toolStripButton2
+            // btnTaskDelete
             // 
-            this.toolStripButton2.AutoSize = false;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(60, 40);
-            this.toolStripButton2.Text = "Delete";
-            this.toolStripButton2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnTaskDelete.AutoSize = false;
+            this.btnTaskDelete.Image = ((System.Drawing.Image)(resources.GetObject("btnTaskDelete.Image")));
+            this.btnTaskDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnTaskDelete.Name = "btnTaskDelete";
+            this.btnTaskDelete.Size = new System.Drawing.Size(60, 40);
+            this.btnTaskDelete.Text = "Delete";
+            this.btnTaskDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnTaskDelete.Click += new System.EventHandler(this.BtnTaskDeleteClick);
             // 
             // toolStripSeparator3
             // 
@@ -372,7 +379,7 @@ namespace TimeSands.Forms
             // 
             // timerRefreshTasks
             // 
-            this.timerRefreshTasks.Tick += new System.EventHandler(this.timerRefreshTasks_Tick);
+            this.timerRefreshTasks.Tick += new System.EventHandler(this.TimerRefreshTasksTick);
             // 
             // frmMain
             // 
@@ -386,7 +393,8 @@ namespace TimeSands.Forms
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Time Sands v0.1";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMainClosing);
+            this.Load += new System.EventHandler(this.FrmMainLoad);
             this.pTop.ResumeLayout(false);
             this.tsTop.ResumeLayout(false);
             this.tsTop.PerformLayout();
@@ -423,13 +431,13 @@ namespace TimeSands.Forms
         private System.Windows.Forms.Timer timerRefreshTasks;
         private ComponentOwl.BetterListView.BetterListViewColumnHeader lvhActivity;
         private System.Windows.Forms.ToolStrip tsTasks;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton btnTaskModify;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
-        private System.Windows.Forms.ToolStripButton toolStripButton3;
-        private System.Windows.Forms.ToolStripButton toolStripButton4;
-        private System.Windows.Forms.ToolStripButton toolStripButton5;
-        private System.Windows.Forms.ToolStripButton toolStripButton6;
+        private System.Windows.Forms.ToolStripButton btnTaskDelete;
+        private System.Windows.Forms.ToolStripButton btnTaskClose;
+        private System.Windows.Forms.ToolStripButton btnTaskStart;
+        private System.Windows.Forms.ToolStripButton btnTaskSuspend;
+        private System.Windows.Forms.ToolStripButton btnTaskStop;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
     }

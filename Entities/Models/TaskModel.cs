@@ -70,19 +70,25 @@ namespace TimeSands.Entities.Models
             _records.GetAll(("task_id", Id));
         }
 
-        public bool SetActive()
+        public bool CanStart
         {
-            if (State != TaskState.Active && State != TaskState.Deleted)
+            get { return State != TaskState.Active && State != TaskState.Deleted; }
+        }
+
+        public bool Start()
+        {
+            if (CanStart)
             {
                 foreach (TaskModel task in Tasks.Instance.Where(t => t != this))
                 {
-                    task.SetInactive();
+                    task.Stop();
                 }
 
                 switch (State)
                 {
                     case TaskState.Idle:
                     case TaskState.Closed:
+                    case TaskState.Suspended:
                         StartRecord();
                         break;
                 }
@@ -95,9 +101,14 @@ namespace TimeSands.Entities.Models
             return false;
         }
 
-        public bool SetInactive()
+        public bool CanStop
         {
-            if (State == TaskState.Active || State == TaskState.Suspended)
+            get { return State == TaskState.Active || State == TaskState.Suspended; }
+        }
+
+        public bool Stop()
+        {
+            if (CanStop)
             {
                 StopRecord();
                 State = TaskState.Idle;
@@ -110,7 +121,7 @@ namespace TimeSands.Entities.Models
 
         public bool ToggleActive()
         {
-            return SetActive() || SetInactive();
+            return Start() || Stop();
         }
 
         private void StartRecord()
@@ -128,9 +139,14 @@ namespace TimeSands.Entities.Models
             record.Save();
         }
 
+        public bool CanSuspend
+        {
+            get { return State == TaskState.Active; }
+        }
+
         public void Suspend()
         {
-            if (State == TaskState.Active)
+            if (CanSuspend)
             {
                 StopRecord();
                 State = TaskState.Suspended;
@@ -138,9 +154,14 @@ namespace TimeSands.Entities.Models
             }
         }
 
+        public bool CanResume
+        {
+            get { return State == TaskState.Suspended; }
+        }
+
         public void Resume()
         {
-            if (State == TaskState.Suspended)
+            if (CanResume)
             {
                 StartRecord();
                 State = TaskState.Active;
@@ -148,9 +169,14 @@ namespace TimeSands.Entities.Models
             }
         }
 
+        public bool CanClose
+        {
+            get { return State != TaskState.Closed && State != TaskState.Deleted; }
+        }
+
         public void Close()
         {
-            if (State != TaskState.Closed && State != TaskState.Deleted)
+            if (CanClose)
             {
                 TaskRecordModel record = _records.LastOrDefault();
                 if (record != null && !record.IsStopped)
