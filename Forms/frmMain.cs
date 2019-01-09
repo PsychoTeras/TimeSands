@@ -36,6 +36,8 @@ namespace TimeSands.Forms
             cbCurrentSprint.SetDataSource(Sprints.Instance, "Name", () => Sprints.Instance.ActiveSprint);
             cbCurrentSprint.EndUpdate();
 
+            lvTasks.BindGroups(Boards.Instance, b => b.Name, b => b.Name);
+
             lvTasks.BeginUpdate();
             lvTasks.DataSource = Tasks.Instance;
             lvTasks.SelectedItems.Clear();

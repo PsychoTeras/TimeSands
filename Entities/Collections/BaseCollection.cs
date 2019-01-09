@@ -14,9 +14,9 @@ namespace TimeSands.Entities.Collections
 
         protected List<T> Collection;
 
-        public bool ContainsListCollection
+        public int Count
         {
-            get { return true; }
+            get { return Collection.Count; }
         }
 
         protected void AssertModelNotExists(T model)
@@ -111,12 +111,7 @@ namespace TimeSands.Entities.Collections
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return GetEnumerator();
-        }
-
-        public IList GetList()
-        {
-            return Collection;
+            return Collection.GetEnumerator();
         }
     }
 }
