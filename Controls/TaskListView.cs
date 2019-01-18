@@ -121,16 +121,21 @@ namespace TimeSands.Controls
                 }
 
                 BetterListViewSubItem subItem = item.SubItems[idx];
-                string displayText = propertyInfo.GetValue(dataObject)?.ToString();
-                if (subItem.Text != displayText)
+                object displayValue = propertyInfo.GetValue(dataObject);
+                string displayString = displayValue?.ToString();
+                if (subItem.Text != displayString)
                 {
-                    subItem.Text = displayText;
+                    subItem.Text = displayString;
                 }
 
-                if (!string.IsNullOrEmpty(column.ValueMember) &&
+                if (column.ValueMember != string.Empty &&
                     props.TryGetValue(column.ValueMember, out propertyInfo))
                 {
                     subItem.Key = (IComparable) propertyInfo.GetValue(dataObject);
+                }
+                else
+                {
+                    subItem.Key = (IComparable) displayValue;
                 }
             }
         }
