@@ -26,19 +26,21 @@ namespace TimeSands.Controls
             }
         }
 
-        public void SetDataSource(object dataSource, string displayMember = null,
+        public void Bind(object dataSource, string displayMember = null,
             Func<object> getSelectedItem = null)
         {
             if (ComboBox != null)
             {
+                BeginUpdate();
                 _getSelectedItem = getSelectedItem;
                 _dataSource = dataSource;
                 ComboBox.DisplayMember = displayMember;
-                Refresh();
+                Rebind();
+                EndUpdate();
             }
         }
 
-        public void Refresh()
+        public void Rebind()
         {
             if (ComboBox != null)
             {

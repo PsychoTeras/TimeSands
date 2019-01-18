@@ -186,12 +186,16 @@ namespace TimeSands.Forms
             this.lvTasks.Columns.Add(this.lvhStarted);
             this.lvTasks.Columns.Add(this.lvhClosed);
             this.lvTasks.Columns.Add(this.lvhTimeSpent);
-            this.lvTasks.DisplayMember = "Name";
+            this.lvTasks.DataBindPosition = false;
             this.lvTasks.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvTasks.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lvTasks.Location = new System.Drawing.Point(0, 0);
             this.lvTasks.MultiSelect = false;
             this.lvTasks.Name = "lvTasks";
+            this.lvTasks.ShowEmptyGroups = true;
+            this.lvTasks.ShowGroups = true;
+            this.lvTasks.ShowToolTips = true;
+            this.lvTasks.ShowToolTipsSubItems = true;
             this.lvTasks.Size = new System.Drawing.Size(1185, 650);
             this.lvTasks.SortedColumnsRowsHighlight = ComponentOwl.BetterListView.BetterListViewSortedColumnsRowsHighlight.ShowAlways;
             this.lvTasks.TabIndex = 0;
@@ -204,12 +208,13 @@ namespace TimeSands.Forms
             this.lvhActivity.AllowResize = false;
             this.lvhActivity.Name = "lvhActivity";
             this.lvhActivity.Style = ComponentOwl.BetterListView.BetterListViewColumnHeaderStyle.Nonclickable;
-            this.lvhActivity.Width = 38;
+            this.lvhActivity.Width = 42;
             // 
             // lvhTask
             // 
             this.lvhTask.DisplayMember = "Name";
             this.lvhTask.Name = "lvhTask";
+            this.lvhTask.Style = ComponentOwl.BetterListView.BetterListViewColumnHeaderStyle.Sortable;
             this.lvhTask.Text = "Task";
             this.lvhTask.ValueMember = "Name";
             this.lvhTask.Width = 428;
@@ -218,6 +223,7 @@ namespace TimeSands.Forms
             // 
             this.lvhState.DisplayMember = "State";
             this.lvhState.Name = "lvhState";
+            this.lvhState.Style = ComponentOwl.BetterListView.BetterListViewColumnHeaderStyle.Sortable;
             this.lvhState.Text = "State";
             this.lvhState.ValueMember = "State";
             this.lvhState.Width = 112;
@@ -226,6 +232,7 @@ namespace TimeSands.Forms
             // 
             this.lvhSprint.DisplayMember = "SprintName";
             this.lvhSprint.Name = "lvhSprint";
+            this.lvhSprint.Style = ComponentOwl.BetterListView.BetterListViewColumnHeaderStyle.Sortable;
             this.lvhSprint.Text = "Sprint";
             this.lvhSprint.ValueMember = "SprintName";
             this.lvhSprint.Width = 187;
@@ -234,6 +241,7 @@ namespace TimeSands.Forms
             // 
             this.lvhStarted.DisplayMember = "StartedAt";
             this.lvhStarted.Name = "lvhStarted";
+            this.lvhStarted.Style = ComponentOwl.BetterListView.BetterListViewColumnHeaderStyle.Sortable;
             this.lvhStarted.Text = "Started at";
             this.lvhStarted.ValueMember = "StartTime";
             // 
@@ -241,6 +249,7 @@ namespace TimeSands.Forms
             // 
             this.lvhClosed.DisplayMember = "ClosedAt";
             this.lvhClosed.Name = "lvhClosed";
+            this.lvhClosed.Style = ComponentOwl.BetterListView.BetterListViewColumnHeaderStyle.Sortable;
             this.lvhClosed.Text = "Completed at";
             this.lvhClosed.ValueMember = "CloseTime";
             // 
@@ -248,6 +257,7 @@ namespace TimeSands.Forms
             // 
             this.lvhTimeSpent.DisplayMember = "TimeSpent";
             this.lvhTimeSpent.Name = "lvhTimeSpent";
+            this.lvhTimeSpent.Style = ComponentOwl.BetterListView.BetterListViewColumnHeaderStyle.Sortable;
             this.lvhTimeSpent.Text = "Time spent";
             this.lvhTimeSpent.ValueMember = "TimeSpent";
             // 
@@ -414,7 +424,6 @@ namespace TimeSands.Forms
         private System.Windows.Forms.ToolStripButton btnTaskAdd;
         private Controls.HorizontalDivider hrTop;
         private Controls.BorderedPanel pMain;
-        private Controls.TaskListView lvTasks;
         private System.Windows.Forms.Panel pMainCenter;
         private System.Windows.Forms.Panel pMainTop;
         private Controls.HorizontalDivider hrMainTop;
@@ -440,6 +449,7 @@ namespace TimeSands.Forms
         private System.Windows.Forms.ToolStripButton btnTaskStop;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private TaskListView lvTasks;
     }
 }
 

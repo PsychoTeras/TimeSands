@@ -159,14 +159,17 @@ namespace TimeSands.Entities.Models
             get { return State == TaskState.Suspended; }
         }
 
-        public void Resume()
+        public bool Resume()
         {
             if (CanResume)
             {
                 StartRecord();
                 State = TaskState.Active;
                 Save();
+                return true;
             }
+
+            return true;
         }
 
         public bool CanClose

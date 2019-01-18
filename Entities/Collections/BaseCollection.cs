@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TimeSands.DAL;
 using TimeSands.Entities.Models;
 
@@ -13,6 +14,11 @@ namespace TimeSands.Entities.Collections
         private IBaseCRUD<T> _dbObject;
 
         protected List<T> Collection;
+
+        public bool ContainsListCollection
+        {
+            get { return Collection.Any(); }
+        }
 
         public int Count
         {
@@ -112,6 +118,11 @@ namespace TimeSands.Entities.Collections
         IEnumerator IEnumerable.GetEnumerator()
         {
             return Collection.GetEnumerator();
+        }
+
+        public IList GetList()
+        {
+            return Collection;
         }
     }
 }
